@@ -1,0 +1,6 @@
+# pilot sample: protocol_id, category, github repo
+uniswap-v4       dex          https://github.com/Uniswap/v4-core
+aave-v3          lending      https://github.com/aave-dao/aave-v3-origin
+morpho-blue      lending      https://github.com/morpho-org/morpho-blue
+compound-comet   lending      https://github.com/compound-finance/comet
+lido-core        lst          https://github.com/lidofinance/core
