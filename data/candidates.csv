@@ -1,0 +1,301 @@
+raw_rank,name,slug,parent,category,eth_tvl_usd,verdict,reason,github_orgs,audit_links,listed_at
+1,Binance CEX,binance-cex,,CEX,72260077297,drop,category CEX is not a DeFi protocol with its own contracts,,,1668170565
+2,Lido,lido,,Liquid Staking,26700881349,keep,,lidofinance,https://github.com/lidofinance/audits,
+3,Aave V3,aave-v3,parent#aave,Lending,15729044884,keep,,,https://aave.com/security,1648776877
+4,OKX,okx,,CEX,14310188545,drop,category CEX is not a DeFi protocol with its own contracts,,,1668185769
+5,SSV Network,ssv-network,,Staking Pool,14292805692,review,borderline category: Staking Pool,,,
+6,Binance staked ETH,binance-staked-eth,,Liquid Staking,9603998778,keep,,,https://github.com/peckshield/publications/blob/master/audit_reports/PeckShield-Audit-Report-wBETH-v1.0.pdf,1682803395
+7,EigenCloud,eigencloud,,Restaking,7172291910,review,borderline category: Restaking,Layr-Labs,https://docs.eigencloud.xyz/eigenlayer/security/audits,1686776222
+8,Bitfinex,bitfinex,,CEX,7122270099,drop,category CEX is not a DeFi protocol with its own contracts,,,1668201923
+9,LayerZero V2,layerzero-v2,parent#layerzero,Bridge,7061672711,drop,category Bridge is not a DeFi protocol with its own contracts,,,
+10,SparkLend,sparklend,parent#spark,Lending,5807420889,drop,fork of Aave V3,,https://devs.spark.fi/security/security-and-audits,1683144119
+11,Sky Lending,sky-lending,parent#maker,CDP,5687021760,keep,,,https://security.makerdao.com/,
+12,Bybit,bybit,,CEX,5321482053,drop,category CEX is not a DeFi protocol with its own contracts,,,1668595021
+13,ether.fi Stake,ether.fi-stake,parent#ether-fi,Liquid Staking,5096978592,keep,,,,1677778460
+14,Morpho Blue,morpho-blue,parent#morpho,Lending,5093100665,keep,,,https://docs.morpho.org/morpho-blue/concepts/security/audits/,1705261273
+15,Ethena USDe,ethena-usde,parent#ethena,Basis Trading,4882092473,review,borderline category: Basis Trading,,https://ethena-labs.gitbook.io/ethena-labs/resources/audits#quantstamp-audit-on-v2-of-contracts,1708016301
+16,Robinhood,robinhood,,CEX,3691842852,drop,category CEX is not a DeFi protocol with its own contracts,robinhood,,
+17,Gate,gate,,CEX,3520754146,drop,category CEX is not a DeFi protocol with its own contracts,,,1669634683
+18,Arbitrum Bridge,arbitrum-bridge,parent#arbitrum-foundation,Canonical Bridge,3519989080,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+19,USDT0,usdt0,,Bridge,3286903244,drop,category Bridge is not a DeFi protocol with its own contracts,,https://github.com/Everdawn-Labs/usdt0-audit-reports/blob/main/Guardian/2025-01-14_USDT0.pdf;https://github.com/Everdawn-Labs/usdt0-audit-reports/blob/main/ChainSecurity/ChainSecurity_USDT0_audit.pdf;https://github.com/Everdawn-Labs/usdt0-audit-reports/blob/main/Paladin/20250110_Paladin_Everdawn_Final_Report.pdf,1741877325
+20,MEXC,mexc,,CEX,3274366066,drop,category CEX is not a DeFi protocol with its own contracts,,,1686152056
+21,Base Bridge,base-bridge,,Canonical Bridge,3043521111,drop,deprecated,,,
+22,Maple,maple,parent#maple-finance,Lending,2985858609,keep,,,https://github.com/maple-labs/maple-core#audit-reports,
+23,Polygon Bridge,polygon-bridge,,Chain,2961232504,drop,category Chain is not a DeFi protocol with its own contracts,,,
+24,Spark Liquidity Layer,spark-liquidity-layer,parent#spark,Onchain Capital Allocator,2384752035,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,https://docs.spark.fi/dev/security/security-and-audits#spark-liquidity-layer,1743696229
+25,KuCoin,kucoin,,CEX,1671537250,drop,category CEX is not a DeFi protocol with its own contracts,,,1668191855
+26,Bitget,bitget,,CEX,1528436356,drop,category CEX is not a DeFi protocol with its own contracts,,,1670842933
+27,CCIP,ccip,parent#chainlink,Bridge,1432168019,drop,category Bridge is not a DeFi protocol with its own contracts,,,1780442964
+28,Rocket Pool,rocket-pool,,Liquid Staking,1426042908,keep,,rocket-pool,https://rocketpool.net/files/sigma-prime-audit.pdf;https://consensys.net/diligence/audits/2021/04/rocketpool;https://github.com/trailofbits/publications/blob/master/reviews/RocketPool.pdf;https://immunefi.com/bounty/rocketpool,1637712907
+29,Compound V3,compound-v3,parent#compound-finance,Lending,1415708279,keep,,,https://compound.finance/docs/security,1663169029
+30,Sentora Curator,sentora-curator,parent#sentora,Risk Curators,1389184364,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1759454399
+31,Portal,portal,,Bridge,1376305744,drop,category Bridge is not a DeFi protocol with its own contracts,wormhole-foundation,https://github.com/certusone/wormhole/blob/dev.v2/SECURITY.md,1647148275
+32,Deribit,deribit,,CEX,1342352951,drop,category CEX is not a DeFi protocol with its own contracts,,,1668191855
+33,Curve DEX,curve-dex,parent#curve-finance,Dexs,1259335414,keep,,,https://docs.curve.finance/references/audits/,
+34,Bitstamp,bitstamp,,CEX,1221845152,drop,category CEX is not a DeFi protocol with its own contracts,,,1695297539
+35,Falcon Finance,falcon-finance,,Basis Trading,1207784353,review,borderline category: Basis Trading,,https://docs.falcon.finance/resources/audits#smart-contract-audits,1759263444
+36,Concrete,concrete,,Onchain Capital Allocator,1198694875,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,https://docs.concrete.xyz/assets/files/Standard-Implementation-9948d7fcebb518e5c29051bc2326b5ec.pdf/;https://docs.concrete.xyz/assets/files/Zellic-Audit-Report-5dbb9d52d444adcd197dfbaa941a86ab.pdf/,1738937447
+37,Kelp,kelp,parent#kelp-dao,Liquid Restaking,1169411053,keep,,,https://kelp.gitbook.io/kelp/audits,1703173957
+38,StakeWise V3,stakewise-v3,parent#stakewise,Liquid Staking,1030391472,keep,,,https://github.com/stakewise/contracts/tree/master/audits,
+39,Spark Savings,spark-savings,parent#spark,Yield,985773645,review,borderline category: Yield,,,1757630167
+40,Steakhouse Financial,steakhouse-financial,,Risk Curators,924344072,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747736199
+41,Uniswap V3,uniswap-v3,parent#uniswap,Dexs,924287145,keep,,,https://github.com/Uniswap/uniswap-v3-core/tree/main/audits;https://github.com/Uniswap/uniswap-v3-periphery/tree/main/audits;https://github.com/ConsenSys/Uniswap-audit-report-2018-12,1666191475
+42,Gemini,gemini,,CEX,917348559,drop,category CEX is not a DeFi protocol with its own contracts,,,1753349019
+43,Liquid Collective,liquid-collective,,Liquid Staking,875483823,keep,,,https://liquidcollective.io/security-audits,1692193282
+44,Poloniex,poloniex,,CEX,842039284,drop,category CEX is not a DeFi protocol with its own contracts,,,1772302711
+45,Robinhood Chain Bridge,robinhood-chain-bridge,,Canonical Bridge,839361203,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,1783361622
+46,Uniswap V2,uniswap-v2,parent#uniswap,Dexs,818437987,review,sibling version of Uniswap V3 (separate codebase?),,https://github.com/Uniswap/uniswap-v3-core/tree/main/audits;https://github.com/Uniswap/uniswap-v3-periphery/tree/main/audits;https://github.com/ConsenSys/Uniswap-audit-report-2018-12,1666191162
+47,Uniswap V4,uniswap-v4,parent#uniswap,Dexs,756013653,review,sibling version of Uniswap V3 (separate codebase?),,https://github.com/Uniswap/v4-core/tree/main/docs/security/audits;https://github.com/Uniswap/v4-periphery/tree/main/audits,1738172667
+48,Tornado Cash,tornado-cash,,Privacy,744022012,drop,category Privacy is not a DeFi protocol with its own contracts,tornadocash,https://tornado.cash/#faq,
+49,Pendle V2,pendle-v2,parent#pendle,Yield,724947220,review,borderline category: Yield,,https://github.com/pendle-finance/pendle-core-v2-public/tree/main/audits,
+50,Grove Finance,grove-finance,,Onchain Capital Allocator,723722401,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,,1774489318
+51,Veda,veda,,Onchain Capital Allocator,689539811,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,Veda-Labs,https://github.com/Se7en-Seas/boring-vault/tree/main/audit;https://0xmacro.com/library/audits/sevenSeas-1.html;https://0xmacro.com/library/audits/sevenSeas-2.html;https://0xmacro.com/library/audits/sevenSeas-3.html,1740088552
+52,Optimism Bridge,optimism-bridge,parent#optimism-foundation,Canonical Bridge,671093873,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+53,Crypto-com,crypto-com,,CEX,657012899,drop,category CEX is not a DeFi protocol with its own contracts,,,1668173255
+54,Lighter Bridge,lighter-bridge,parent#lighter,Bridge,639082453,drop,category Bridge is not a DeFi protocol with its own contracts,,,1744624979
+55,Obol,obol,,Staking Pool,634503246,review,borderline category: Staking Pool,,,1762287672
+56,mETH Protocol,meth-protocol,,Liquid Staking,622497645,keep,,,,1701703365
+57,Ondo Global Markets,ondo-global-markets,parent#ondo-finance,RWA,611919097,review,borderline category: RWA,,https://docs.ondo.finance/ondo-global-markets/trust-and-transparency,1756900783
+58,Convex Finance,convex-finance,,Yield,605580004,review,borderline category: Yield,convex-eth,https://github.com/convex-eth/platform/blob/main/audit/Convex%20Platform%20Security%20Audit%20Report.pdf,
+59,HashKey Exchange,hashkey-exchange,,CEX,535117894,drop,category CEX is not a DeFi protocol with its own contracts,,,1718877100
+60,Invesco USTB,invesco-ustb,parent#superstate,RWA,532752942,review,borderline category: RWA,,,1709914041
+61,Fluid Lending,fluid-lending,parent#fluid,Lending,530179335,keep,,,https://docs.fluid.instadapp.io/audits-and-security.html,1708863218
+62,Coinbase Wrapped Staked ETH,coinbase-wrapped-staked-eth,,Liquid Staking,520335611,keep,,coinbase,,1666641682
+63,Symbiotic,symbiotic,,Collateral Markets,482912325,keep,,symbioticfi,https://github.com/symbioticfi/collateral/tree/main/audits,1718109849
+64,Ethena USDtb,ethena-usdtb,parent#ethena,RWA,482861461,review,borderline category: RWA; sibling version of Ethena USDe (separate codebase?),,,1734350466
+65,ether.fi Liquid,ether.fi-liquid,parent#ether-fi,Onchain Capital Allocator,456700939,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,,1712171943
+66,Aave V4,aave-v4,parent#aave,Lending,423017789,review,sibling version of Aave V3 (separate codebase?),,https://aave.com/security,1774886314
+67,World Chain,world-chain,,Canonical Bridge,411055404,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+68,SwissBorg,swissborg,,CEX,388105756,drop,category CEX is not a DeFi protocol with its own contracts,,,1668784560
+69,Gauntlet,gauntlet,,Risk Curators,371704304,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747734127
+70,Re,re,,RWA,368569293,review,borderline category: RWA,,https://hacken.io/audits/re-protocol/,1766447067
+71,cap,cap,,Lending,365944228,keep,,cap-labs-dev,https://github.com/cap-labs-dev/cap-audits,1755167300
+72,Defi Saver Asset Management,defi-saver-asset-management,parent#defi-saver,CDP Manager,356334920,keep,,,https://consensys.net/diligence/audits/2021/03/defi-saver/,
+73,Anemoy Capital,anemoy-capital,,RWA,350245228,review,borderline category: RWA,,,1733763997
+74,Nexo,nexo,,CEX,327147139,drop,category CEX is not a DeFi protocol with its own contracts,,,1673713595
+75,Dolomite,dolomite,,Lending,321770280,keep,,dolomite-exchange,https://github.com/dolomite-exchange/dolomite-margin/blob/master/docs/Dolomite%20Margin%20-%20Cyfrin%20-%202023-08-23.pdf;https://github.com/dolomite-exchange/dolomite-margin/blob/master/docs/Dolomite%20Margin%20-%20SECBIT%20-%202021-08-02.pdf,1666000576
+76,Upshift,upshift,,Onchain Capital Allocator,278666176,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,https://docs.upshift.finance/architecture/smart-contract-audits,1733311923
+77,Mellow Core,mellow-core,parent#mellow-protocol,Onchain Capital Allocator,278599227,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,https://docs.mellow.finance/security,1769604099
+78,xDAI Stake Bridge,xdai-stake-bridge,,Canonical Bridge,275901886,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+79,Bitkub,bitkub,,CEX,271564479,drop,category CEX is not a DeFi protocol with its own contracts,,,1734606794
+80,Linea Bridge,linea-bridge,,Canonical Bridge,264282510,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+81,Aave Horizon RWA,aave-horizon-rwa,parent#aave,Lending,263198781,review,sibling version of Aave V3 (separate codebase?),,https://github.com/aave/aave-v3-horizon/tree/main/audits,1765304701
+82,Fluid Lite,fluid-lite,parent#fluid,Yield Aggregator,251128445,review,borderline category: Yield Aggregator; sibling version of Fluid Lending (separate codebase?),,,
+83,Starknet Bridge,starknet-bridge,,Canonical Bridge,247446703,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+84,Stader,stader,,Liquid Staking,239933623,keep,,stader-labs,https://www.staderlabs.com/docs-v1/category/auditors;https://kp5hfcaxs2prkdoscwibtrbjjddvoov3huhezsxknanxfaucm76a.arweave.net/U_pyiBeWnxUN0hWQGcQpSMdXOrs9DkzK6mgbcoKCZ_w;https://github.com/HalbornSecurity/PublicReports/blob/master/CosmWasm%20Smart%20Contract%20Audits/Stader_Labs_LunaX_Contrracts_CosmWasm_Smart_Contract_Security_Audit_Report_Halborn_Final.pdf,1639811716
+85,Cooler Loans,cooler-loans,,Lending,235344245,keep,,,,1771638877
+86,Fluid DEX,fluid-dex,parent#fluid,Dexs,218572875,review,sibling version of Fluid Lending (separate codebase?),,,1730732495
+87,CIAN Yield Layer,cian-yield-layer,parent#cian-protocol,Yield Aggregator,213528601,review,borderline category: Yield Aggregator,,,1731945961
+88,KPK,kpk,,Risk Curators,200803238,drop,category Risk Curators is not a DeFi protocol with its own contracts,karpatkey,,1760637747
+89,Liquity V1,liquity-v1,parent#liquity,CDP,197811428,keep,,,https://github.com/trailofbits/publications/blob/master/reviews/Liquity.pdf;https://www.coinspect.com/liquity-audit/,
+90,M0,m0,,Stablecoin Issuer,197147618,keep,,,https://docs.m0.org/portal/technical/audits,1728953339
+91,WEEX,weex,,CEX,194385441,drop,category CEX is not a DeFi protocol with its own contracts,,,1767387349
+92,DigiFT,digift,,RWA,190575761,review,borderline category: RWA,,,1695992751
+93,Yearn Finance,yearn-finance,parent#yearn,Yield Aggregator,178781514,review,borderline category: Yield Aggregator,,https://github.com/yearn/yearn-security/tree/master/audits,
+94,OSL Exchange,osl-exchange,,CEX,172504678,drop,category CEX is not a DeFi protocol with its own contracts,,,1768319453
+95,Fraxtal,fraxtal,,Chain,169761323,drop,category Chain is not a DeFi protocol with its own contracts,,,
+96,Unit,unit,,Bridge,163567492,drop,category Bridge is not a DeFi protocol with its own contracts,,,1739557972
+97,crvUSD,crvusd,parent#curve-finance,CDP,161769904,review,sibling version of Curve DEX (separate codebase?),,https://docs.curve.finance/references/audits/#curve-stablecoin-and-lending,1683150941
+98,Huma Finance V2,huma-finance-v2,,RWA,158214181,review,borderline category: RWA,00labs,https://docs.huma.finance/ecosystem-resources/security-audits,1779853635
+99,Aster Bridge,aster-bridge,parent#astherus,Bridge,148120001,drop,category Bridge is not a DeFi protocol with its own contracts,,,1720175975
+100,Stake DAO Yield,stake-dao-yield,,Yield,146526222,review,borderline category: Yield,,https://docs.stakedao.org/audits,
+101,HTX,htx,,CEX,141987806,drop,category CEX is not a DeFi protocol with its own contracts,,,1668362612
+102,Saturn,saturn,,Stablecoin Wrapper,140810090,keep,,,,1775766807
+103,RockawayX,rockawayx,,Risk Curators,140601932,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1774551409
+104,Avalanche Core Bridge,avalanche-core-bridge,,Canonical Bridge,140028570,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+105,Lagoon,lagoon,,Onchain Capital Allocator,138823509,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,hopperlabsxyz,https://docs.lagoon.finance/resources/audits,1734930934
+106,Frax Ether,frax-ether,parent#frax-finance,Liquid Staking,138670730,keep,,,,1666641678
+107,Phemex,phemex,,CEX,138501020,drop,category CEX is not a DeFi protocol with its own contracts,,,1671451792
+108,Yield Basis,yield-basis,,Leveraged Farming,138389500,review,borderline category: Leveraged Farming,,,1758821541
+109,Mantle Bridge,mantle-bridge,,Canonical Bridge,134966631,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+110,Armitage by Wintermute,armitage-by-wintermute,,Risk Curators,134762007,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1779310578
+111,Theo Network thUSD,theo-network-thusd,parent#theo,RWA,134587511,review,borderline category: RWA,,https://github.com/Zellic/publications/blob/master/ThUSD%20-%20Zellic%20Audit%20Report.pdf;https://github.com/zenith-security/reports/blob/main/reports/Theo%20Tokenized%20Staking%20Vault%20-%20Zenith%20Audit%20Report.pdf;https://github.com/peckshield/publications/blob/main/audit_reports/Peckshield_Audit_Report_Theo_Network_ThUSD.pdf,1789001313
+112,fx Protocol,fx-protocol,,Dual-Token Stablecoin,132085690,keep,,,https://github.com/AladdinDAO/aladdin-v3-contracts/blob/main/audit-reports/SECBIT_f(x)_V2_Report_v1.4_20250107.pdf,1691149929
+113,Axelar,axelar,parent#axelar-network,Bridge,131038342,drop,category Bridge is not a DeFi protocol with its own contracts,,https://github.com/axelarnetwork/audits,1667045416
+114,zkSync Era txBridge,zksync-era-txbridge,,Canonical Bridge,129981930,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+115,Bitvavo,bitvavo,,CEX,127613855,drop,category CEX is not a DeFi protocol with its own contracts,,,1774432030
+116,Nexus Mutual,nexus-mutual,,Insurance,116146891,keep,,NexusMutual,https://nexusmutual.gitbook.io/docs/helpful-resources/audits-and-security,
+117,K3 Capital,k3-capital,,Risk Curators,114470880,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747734980
+118,Compound V2,compound-v2,parent#compound-finance,Lending,112694128,review,sibling version of Compound V3 (separate codebase?),,https://compound.finance/docs/security,
+119,Sky Money,sky-money,parent#maker,Risk Curators,110376803,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1779217533
+120,Bedrock uniBTC,bedrock-unibtc,parent#bedrock,Anchor BTC,109345502,keep,,,,1730219911
+121,Avalon CeDeFi,avalon-cedefi,parent#avalon-labs,Anchor BTC,109255885,keep,,,,1725498632
+122,Bitunix,bitunix,,CEX,107274161,drop,category CEX is not a DeFi protocol with its own contracts,,,1724758911
+123,UNCX Network V2,uncx-network-v2,parent#uncx-network,Token Locker,106769455,keep,,,https://github.com/softstackHQ/Smart-Contract-Security-Audits/tree/master/Unicrypt;https://www.certik.com/projects/unicrypt,1652762212
+124,Liquity V2,liquity-v2,parent#liquity,CDP,106037894,review,sibling version of Liquity V1 (separate codebase?),,https://docs.liquity.org/v2-documentation/technical-resources,1737631098
+125,Homora V2,homora-v2,,Leveraged Farming,105826663,review,borderline category: Leveraged Farming,,https://blog.openzeppelin.com/alpha-homora-v2/,
+126,Frax USD,frax-usd,parent#frax-finance,RWA,102839763,review,borderline category: RWA; sibling version of Frax Ether (separate codebase?),,,1755567417
+127,Railgun,railgun,,Privacy,97559457,drop,category Privacy is not a DeFi protocol with its own contracts,Railgun-Privacy;Railgun-Community,http://assets.railgun.ch/docs/audits/Railgun%20Audit%20Report%20-%20Zokyo%20November%202021.pdf;https://bafybeiakdhweojvf7zvtp2tr32alzam4yyifbolf7fgrmsshalea7fv55m.ipfs.cf-ipfs.com/docs/Railgun%20Audit%20Report%20-%20ABDK%20July%202021.pdf,1643326249
+128,stake.link liquid,stake.link-liquid,parent#stake.link,Liquid Staking,95185970,keep,,,,1671639906
+129,Enzyme Finance,enzyme-finance,,Indexes,91248100,review,borderline category: Indexes,enzymefinance,https://audit.enzyme.finance/,
+130,Renzo,renzo,,Liquid Restaking,87919451,keep,,Renzo-Protocol,https://docs.renzoprotocol.com/docs/security/audits,1702962127
+131,Usual USD0,usual-usd0,parent#usual,RWA,87866687,review,borderline category: RWA,,https://tech.usual.money/security-and-audits/audits ,1721046229
+132,Concentrator,concentrator,,Yield,87382231,review,borderline category: Yield,AladdinDAO,https://aladdin.club/audits/AladdinDao_V3_Report_Secbit.pdf,1647257070
+133,Frankencoin,frankencoin,,CDP,87298021,keep,,Frankencoin-ZCHF,https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V1/ChainSecurity-audit.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V1/blockbite-audit.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V2/ChainSecurity_Frankencoin_Frankencoin_v2024.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V2/frankencoin-audit-report-2024-1.1.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/tree/main/audits/V1;https://github.com/Frankencoin-ZCHF/Frankencoin/tree/main/audits/V2,1699970045
+134,Swell L2 Farm,swell-l2-farm,parent#swell,Farm,87048614,keep,,,,1712729172
+135,Stargate V2,stargate-v2,parent#stargate-finance,Cross Chain Bridge,86519723,keep,,,https://github.com/LayerZero-Labs/Audits/blob/main/audits/OApp%26OFT-Zellic-12JUN2024.pdf,1719902937
+136,BingX,bingx,,CEX,86336262,drop,category CEX is not a DeFi protocol with its own contracts,,,1720449775
+137,Aave V2,aave-v2,parent#aave,Lending,86227977,review,sibling version of Aave V3 (separate codebase?),,https://aave.com/security,
+138,Vesper,vesper,,Yield Aggregator,83802987,review,borderline category: Yield Aggregator,vesperfi,https://github.com/vesperfi/doc/tree/main/audit,
+139,Avalon Superearn,avalon-superearn,parent#avalon-labs,Yield,83770682,review,borderline category: Yield; sibling version of Avalon CeDeFi (separate codebase?),,,1771433427
+140,Zama,zama,,Privacy,81703675,drop,category Privacy is not a DeFi protocol with its own contracts,zama-ai,,1777919449
+141,Bitwise USCC,bitwise-uscc,parent#superstate,Basis Trading,81686162,review,borderline category: Basis Trading; sibling version of Invesco USTB (separate codebase?),,,1725888273
+142,AO Bridge,ao-bridge,,Canonical Bridge,79780445,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+143,Wise Token,wise-token,,Yield,77566778,review,borderline category: Yield,wise-foundation,,1787081257
+144,Curve LlamaLend,curve-llamalend,parent#curve-finance,Lending,76005294,review,sibling version of Curve DEX (separate codebase?),,,1710843413
+145,Galaxy Curation,galaxy-curation,,Risk Curators,75801392,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1779383281
+146,BitFi Basis,bitfi-basis,parent#bitfi,Basis Trading,75012437,review,borderline category: Basis Trading,,,1739530444
+147,Hyperithm,hyperithm,,Risk Curators,74380412,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747734486
+148,SolvBTC LSTs,solvbtc-lsts,parent#solv-protocol,Restaked BTC,74145903,keep,,,,1728477201
+149,Bitmex,bitmex,,CEX,73642368,drop,category CEX is not a DeFi protocol with its own contracts,,,1668703052
+150,Lombard Vaults,lombard-vaults,parent#lombard-finance,Onchain Capital Allocator,73371769,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,,1726215518
+151,Sky RWA,sky-rwa,parent#maker,RWA,72235811,review,borderline category: RWA; sibling version of Sky Lending (separate codebase?),,,1697730940
+152,Circle Gateway,circle-gateway,parent#circle,Cross Chain Bridge,68903915,keep,,,,1782778325
+153,USDCx,usdcx,parent#circle,Stablecoin Wrapper,68831112,review,sibling version of Circle Gateway (separate codebase?),,,1782415477
+154,Treehouse Protocol,treehouse-protocol,,DOR,67981007,keep,,,https://github.com/treehouse-gaia/audit-report,1725968902
+155,Tori Finance,tori-finance,,Basis Trading,67912379,review,borderline category: Basis Trading,,https://docs.tori.finance/security/audits,1782275555
+156,Indodax,indodax,,CEX,66936815,drop,category CEX is not a DeFi protocol with its own contracts,,,1752664331
+157,Blast Bridge,blast-bridge,parent#blast-l2,Canonical Bridge,64478547,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+158,Yearn Curating,yearn-curating,parent#yearn,Risk Curators,63718284,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1748533355
+159,PulseChain Bridge,pulsechain-bridge,,Canonical Bridge,62412745,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+160,Origin Ether,origin-ether,parent#origin-defi,Liquid Staking,61187244,keep,,,,1683581147
+161,Ink Bridge,ink-bridge,,Canonical Bridge,60750356,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+162,Lisk Bridge,lisk-bridge,,Canonical Bridge,59097958,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,LiskHQ,,
+163,Sonic Gateway,sonic-gateway,,Canonical Bridge,58834090,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,1738081153
+164,Origami Finance,origami-finance,,Leveraged Farming,58653629,review,borderline category: Leveraged Farming,,https://docs.origami.finance/technical-reference/audits,1715612691
+165,Zircuit Staking,zircuit-staking,,Farm,58513162,keep,,,https://dubiw3zgo51jg.cloudfront.net/zircuit_audit_final.pdf,1709594345
+166,Euler V2,euler-v2,parent#euler,Lending,58166434,keep,,,https://www.euler.finance/#security,1724665226
+167,Polygon zkEVM Bridge,polygon-zkevm-bridge,,Canonical Bridge,56912925,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+168,Aera V2,aera-v2,parent#aera,Onchain Capital Allocator,55092117,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,https://github.com/aera-finance/aera-contracts-public/blob/main/v2/audits/spearbit/2023-09-22.pdf,1710850850
+169,Axis,axis,,Basis Trading,54344766,review,borderline category: Basis Trading,,https://www.openzeppelin.com/news/axis-coordinate-v2-contracts-audit,1787263751
+170,Beefy,beefy,,Yield Aggregator,53317809,review,borderline category: Yield Aggregator,beefyfinance,https://github.com/beefyfinance/beefy-audits,
+171,Vault Bridge,vault-bridge,,Risk Curators,52242266,drop,category Risk Curators is not a DeFi protocol with its own contracts,,https://github.com/agglayer/vault-bridge/tree/v0.5.0/audits,1749770022
+172,Resupply,resupply,,Lending,51854781,keep,,resupplyfi,https://docs.resupply.fi/faq/audits,1743178567
+173,Plume Vaults,plume-vaults,,RWA,49301826,review,borderline category: RWA,,https://github.com/plumenetwork/contracts/blob/main/staking/audit/slowmist.pdf;https://github.com/plumenetwork/contracts/blob/main/staking/audit/slowmist2.pdf,1729962607
+174,infiniFi,infinifi,,Yield,49110205,review,borderline category: Yield,InfiniFi-Labs,https://docsend.com/view/vxet6fdzgb6zhfnn;https://docsend.com/view/qtz5tmdi35d7f5si;https://docsend.com/view/8nw9dtr9qhssndzw,1748465947
+175,Tulipa Capital,tulipa-capital,,Risk Curators,48464127,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747736624
+176,Gravity by Galxe,gravity-by-galxe,,Canonical Bridge,48253220,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+177,NEAR Bridge,near-bridge,parent#near-protocol,Canonical Bridge,47687273,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+178,NEAR Intents,near-intents,parent#near-protocol,Bridge,47008102,drop,category Bridge is not a DeFi protocol with its own contracts,,,1760656359
+179,UltraYield Curator,ultrayield-curator,parent#ultrayield,Risk Curators,45371112,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1761342069
+180,Mantle Restaking,mantle-restaking,,Liquid Restaking,45009266,keep,,,https://docs.mantle.xyz/meth/security/audits,1731495743
+181,OpenTrade,opentrade,,RWA,43992749,review,borderline category: RWA,,,1733496042
+182,Flux Finance,flux-finance,,Lending,43494108,drop,fork of Compound V2,,,1676431956
+183,IDEX V1,idex-v1,parent#idex,Dexs,43192716,keep,,,https://github.com/idexio/idex-contracts/tree/master/audits;https://callisto.network/idex-security-audit/,
+184,CoinDCX,coindcx,,CEX,43171548,drop,category CEX is not a DeFi protocol with its own contracts,,,
+185,Telos Consilium,telos-consilium,,Risk Curators,43030447,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1759244012
+186,VALR,valr,,CEX,42654535,drop,category CEX is not a DeFi protocol with its own contracts,,,1759165241
+187,Scroll Bridge,scroll-bridge,,Canonical Bridge,41242363,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+188,Clearstar,clearstar,,Risk Curators,40639635,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747733862
+189,Makina,makina,,Onchain Capital Allocator,39431116,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,MakinaHQ,https://docs.makina.finance/concepts/security/audits,1762370744
+190,Ember Protocol,ember-protocol,,Onchain Capital Allocator,39396994,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,https://ember.so/documents/ember_protocol_audit.pdf,1758144089
+191,Aera V3,aera-v3,parent#aera,Onchain Capital Allocator,39373124,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,,1751553171
+192,NodeDAO,nodedao,,Liquid Staking,39212645,keep,,,https://www.nodedao.com/paf/MetaTrust.pdf;https://www.nodedao.com/paf/BEOSIN.pdf,1684416874
+193,dYdX V3,dydx-v3,parent#dydx,Derivatives,39112138,review,borderline category: Derivatives,,https://docs.dydx.exchange/#independent-audits,
+194,Alchemix V3,alchemix-v3,parent#alchemix,Synthetics,38032595,keep,,,https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v3.pdf,1776975864
+195,AUTOfinance,autofinance,,Yield,37946881,review,borderline category: Yield,Tokemak,https://docs.tokemak.xyz/developer-docs/security-and-audits,
+196,Ring Few,ring-few,parent#ring-protocol,Bridge,37799110,drop,category Bridge is not a DeFi protocol with its own contracts,,https://github.com/RingProtocol/audits,1709414739
+197,Noon,noon,,Yield,37561628,review,borderline category: Yield,,https://docs.noon.capital/security/smart-contract-audits,1738617865
+198,Strata Markets,strata-markets,parent#strata,Yield,37509026,review,borderline category: Yield,,https://docs.strata.markets/technical-documentation/audits,1760577905
+199,BloFin,blofin,,CEX,36814043,drop,category CEX is not a DeFi protocol with its own contracts,,,1724672849
+200,Frax,frax,parent#frax-finance,Algo-Stables,35561127,review,sibling version of Frax Ether (separate codebase?),,https://www.certik.org/projects/fraxfinance,
+201,Reserve Protocol,reserve-protocol,,Indexes,35544815,review,borderline category: Indexes,reserve-protocol,https://reserve.org/protocol/security/?search=audit#s-result,
+202,3F,3f,,Leveraged Farming,35346499,review,borderline category: Leveraged Farming,3FLabs,,1779748015
+203,Derive V2,derive-v2,parent#lyra,Derivatives,34763351,review,borderline category: Derivatives,,,1702643004
+204,Grvt Bridge,grvt-bridge,parent#grvt,Bridge,34698114,drop,category Bridge is not a DeFi protocol with its own contracts,,,1736334414
+205,Fusion by IPOR,fusion-by-ipor,parent#ipor,Yield Aggregator,33999335,review,borderline category: Yield Aggregator,,https://docs.ipor.io/audits,1726236262
+206,Swell Liquid Staking,swell-liquid-staking,parent#swell,Liquid Staking,33790797,review,sibling version of Swell L2 Farm (separate codebase?),,https://docs.swellnetwork.io/swell/risks/smart-contract-audits,1682554957
+207,Team Finance,team-finance,,Token Locker,33784673,keep,,team-finance,https://www.team.finance/file/audit.pdf,1656506800
+208,Avant avETH,avant-aveth,parent#avant-protocol,Onchain Capital Allocator,33778360,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,https://docs.avantprotocol.com/security/contract-and-opsec-audits,1761266699
+209,Curve LlamaLend V2,curve-llamalend-v2,parent#curve-finance,Lending,33562436,review,sibling version of Curve DEX (separate codebase?),,,1781205901
+210,Aegis YUSD,aegis-yusd,parent#aegis,Basis Trading,33241924,review,borderline category: Basis Trading,,,1744284096
+211,Connext,connext,parent#everclear,Bridge,33128595,drop,category Bridge is not a DeFi protocol with its own contracts,,https://drive.google.com/file/d/1l42vxzHwLXrKU10v3FutG2DWthU43vB8/view?pli=1,
+212,Toobit,toobit,,CEX,33037120,drop,category CEX is not a DeFi protocol with its own contracts,,,1722425635
+213,SuiBridge,suibridge,,Canonical Bridge,32950400,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,1728552916
+214,Swell Liquid Restaking,swell-liquid-restaking,parent#swell,Liquid Restaking,32692903,review,sibling version of Swell L2 Farm (separate codebase?),,https://docs.swellnetwork.io/swell/risks/smart-contract-audits,1706584385
+215,Puffer Stake,puffer-stake,parent#puffer-finance,Liquid Restaking,32160723,keep,,,,1706793055
+216,Gate US,gate-us,,CEX,32030218,drop,category CEX is not a DeFi protocol with its own contracts,,,1763560267
+217,Gain,gain,parent#kelp-dao,Onchain Capital Allocator,31343111,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,,1729134534
+218,Korbit,korbit,,CEX,31039026,drop,category CEX is not a DeFi protocol with its own contracts,,,1669113576
+219,Metis Bridge,metis-bridge,,Canonical Bridge,30952204,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+220,Inverse Finance FiRM,inverse-finance-firm,parent#inverse-finance,CDP,30494477,keep,,,https://www.inverse.finance/audits,1673620866
+221,Arrakis Modular,arrakis-modular,parent#arrakis-finance,Liquidity Manager,29867795,keep,,,https://github.com/ArrakisFinance/arrakis-modular/blob/main/audit/Arrakis_Modular_Audit_Report_by_WatchPug.pdf;https://github.com/ArrakisFinance/arrakis-modular/blob/main/audit/ChainSecurity_Spacing_Guild_Arrakis_Modular_audit.pdf,1729682594
+222,Poly Network,poly-network,,Bridge,29459539,drop,category Bridge is not a DeFi protocol with its own contracts,polynetwork,https://github.com/polynetwork/audit-report,1654083965
+223,Immutable zkEVM,immutable-zkevm,,Chain,29271339,drop,category Chain is not a DeFi protocol with its own contracts,,,1717202177
+224,Meta Pool ETH,meta-pool-eth,parent#meta-pool,Liquid Staking,28765311,keep,,,,1692266928
+225,RockSolid Network,rocksolid-network,,Yield,28456494,review,borderline category: Yield,,,1762370739
+226,SushiSwap V3,sushiswap-v3,parent#sushi,Dexs,28434460,drop,fork of Uniswap V3,,,1680740698
+227,Piku Finance,piku-finance,,Basis Trading,28280310,review,borderline category: Basis Trading,piku-co,https://docs.piku.co/piku/piku/security-and-risks/audits,1763513599
+228,Bedrock uniETH,bedrock-unieth,parent#bedrock,Liquid Restaking,28095613,review,sibling version of Bedrock uniBTC (separate codebase?),,https://github.com/RockX-SG/stake/blob/main/PeckShield-Audit-Report-RockXStaking-v1.0.pdf,1681516422
+229,Manta Pacific,manta-pacific,,Canonical Bridge,28088869,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+230,TermMax,termmax,,Lending,27299620,keep,,term-structure,https://github.com/term-structure/audits,1718906602
+231,PancakeSwap AMM V3,pancakeswap-amm-v3,parent#pancakeswap,Dexs,27127489,drop,fork of Uniswap V3,,,1680561479
+232,Mellow Restaking,mellow-restaking,parent#mellow-protocol,Liquid Restaking,26408634,keep,,,,1718106253
+233,APX Bridge,apx-bridge,parent#astherus,Bridge,26383431,drop,category Bridge is not a DeFi protocol with its own contracts,,,1652988932
+234,SushiSwap,sushiswap,parent#sushi,Dexs,26228024,drop,fork of Uniswap V2,,https://github.com/peckshield/publications/blob/master/audit_reports/PeckShield-Audit-Report-SushiSwap-v1.0.pdf,
+235,YieldNest,yieldnest,,Onchain Capital Allocator,25496163,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,yieldnest,https://github.com/yieldnest/Publications/tree/main/audits,1715748037
+236,USDD,usdd,,CDP,25385614,keep,,,,1741877201
+237,Abstract,abstract,,Chain,25032621,drop,category Chain is not a DeFi protocol with its own contracts,,,
+238,UltraYield Vaults,ultrayield-vaults,parent#ultrayield,Onchain Capital Allocator,24865878,drop,category Onchain Capital Allocator is not a DeFi protocol with its own contracts,,,1761083071
+239,Waterline,waterline,,Risk Curators,23904375,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1788459467
+240,Fraxlend,fraxlend,parent#frax-finance,Lending,23782585,review,sibling version of Frax Ether (separate codebase?),,,1662603346
+241,MorpheusAI,morpheusai,,AI Agents,23539817,keep,,MorpheusAIs,https://github.com/MorpheusAIs/Docs/tree/main/Security%20Audit%20Reports,1714565074
+242,Balancer V2,balancer-v2,parent#balancer,Dexs,23354228,keep,,,https://github.com/balancer/balancer-v2-monorepo/tree/master/audits,
+243,Ankr,ankr,,Liquid Staking,23309275,keep,,Ankr-network,https://assets.ankr.com/files/stkr_smart_contract_auditing_report.pdf,
+244,Hakutora,hakutora,,Risk Curators,23028589,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747734346
+245,9Summits,9summits,,Risk Curators,22846517,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1747733002
+246,Biconomy.com,biconomy.com,,CEX,22734554,drop,category CEX is not a DeFi protocol with its own contracts,,,1725626993
+247,Gearbox,gearbox,,Lending,22382308,keep,,Gearbox-protocol,https://docs.gearbox.finance/risk-and-security/audits-bug-bounty,1640629561
+248,BitKan,bitkan,,CEX,22274054,drop,category CEX is not a DeFi protocol with its own contracts,,,1760033298
+249,StakeStone STONE,stakestone-stone,parent#stakestone,Liquid Staking,22104205,keep,,,https://github.com/Secure3Audit/Secure3Academy/blob/main/audit_reports/StakeStone/StakeStone_final_Secure3_Audit_Report.pdf,1695652625
+250,Cronos zkEVM Bridge,cronos-zkevm-bridge,,Canonical Bridge,21832807,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+251,SoSoValue Indexes,sosovalue-indexes,parent#sosovalue,Indexes,21566338,review,borderline category: Indexes,,https://github.com/blocksecteam/audit-reports/blob/main/solidity/blocksec_sosovaluelabs_ssi_v1.0-signed.pdf;https://github.com/slowmist/Knowledge-Base/blob/master/open-report-V2/smart-contract/SSI%20Protocol%20-%20SlowMist%20Audit%20Report.pdf;https://github.com/slowmist/Knowledge-Base/blob/master/open-report-V2/smart-contract/SSI%20Protocol%20Phase2%20-%20SlowMist%20Audit%20Report.pdf,1736793641
+252,Across,across,,Cross Chain Bridge,21268383,keep,,across-protocol,https://blog.openzeppelin.com/uma-audit-l2-bridges/,1641519276
+253,Paradex Bridge,paradex-bridge,parent#paradex,Bridge,21164831,drop,category Bridge is not a DeFi protocol with its own contracts,,,1697648373
+254,Bitwise,bitwise,,Risk Curators,20998066,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1788459477
+255,GETH,geth,,Liquid Staking,20940618,keep,,,,1674124872
+256,Gami Labs,gami-labs,,Risk Curators,20699167,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1780082008
+257,BitVenus,bitvenus,,CEX,20320065,drop,category CEX is not a DeFi protocol with its own contracts,,,1675767017
+258,Apex Omni,apex-omni,parent#apex-protocol,Derivatives,19909458,review,borderline category: Derivatives,,,1719488031
+259,Katana Pre-Launch,katana-pre-launch,,Farm,19167700,keep,,,,1750619365
+260,GAIB,gaib,,RWA,18901267,review,borderline category: RWA,gaib-ai,https://docs.gaib.ai/audits,1754501739
+261,Blur Bids,blur-bids,parent#blur,NFT Marketplace,18634755,drop,category NFT Marketplace is not a DeFi protocol with its own contracts,,,1672970801
+262,Flowdesk,flowdesk,,Risk Curators,18587303,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1788312645
+263,Summer.fi Pro,summer.fi-pro,parent#summer.fi,CDP Manager,18355275,drop,deprecated,,,1690209925
+264,Multichain,multichain,,Bridge,17712703,drop,category Bridge is not a DeFi protocol with its own contracts,anyswap,https://github.com/anyswap/Anyswap-Audit/blob/master/TrailOfBits/Anyswap-CrossChain-Bridge-TrailofBits-Audit-Final%20Report.pdf;https://github.com/anyswap/Anyswap-Audit/blob/master/SlowMist/AnySwap%20CrossChain-Bridge%20Security%20Audit%20Report.pdf;https://github.com/anyswap/Anyswap-Audit/blob/master/SlowMist/Anyswap%20Smart%20Contract%20Security%20Audit.pdf;https://github.com/peckshield/publications/blob/master/audit_reports/PeckShield-Audit-Report-Travala-AnyswapV5ERC20-v1.0.pdf,
+265,Api3,api3,,Risk Curators,17618952,drop,category Risk Curators is not a DeFi protocol with its own contracts,api3dao,https://github.com/api3dao/contracts/tree/main/audit-reports,1643713220
+266,Y10K Capital,y10k-capital,,Risk Curators,17393830,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1784152457
+267,Bancor V3,bancor-v3,parent#bancor,Dexs,17324291,keep,,,https://docs.bancor.network/about-bancor-network/security-and-audits,1660936922
+268,Bitrue,bitrue,,CEX,17071517,drop,category CEX is not a DeFi protocol with its own contracts,,,1738755255
+269,Backpack,backpack,,CEX,16925522,drop,category CEX is not a DeFi protocol with its own contracts,,,
+270,Morph Bridge,morph-bridge,,Bridge,16678689,drop,category Bridge is not a DeFi protocol with its own contracts,,,1730320771
+271,Zoomex,zoomex,,CEX,16044089,drop,category CEX is not a DeFi protocol with its own contracts,,,1748270471
+272,Index Coop,index-coop,,Indexes,16025256,review,borderline category: Indexes,SetProtocol,https://docs.tokensets.com/protocol/security;https://gist.github.com/bernard-wagner/8a96ae7b9746ba8394dc6c16202a6b64,
+273,Equilibria,equilibria,,Yield,16017193,drop,fork of Convex Finance,eqbtech,https://docs.equilibria.fi/security-and-risk/audit-report,1686276971
+274,NEMO Trading,nemo-trading,,Risk Curators,15184745,drop,category Risk Curators is not a DeFi protocol with its own contracts,,,1789785107
+275,Origin ARM,origin-arm,parent#origin-defi,Yield,15119891,review,borderline category: Yield; sibling version of Origin Ether (separate codebase?),,https://docs.originprotocol.com/security-and-risk/audits,1729847936
+276,Balancer V3,balancer-v3,parent#balancer,Dexs,15089010,review,sibling version of Balancer V2 (separate codebase?),,,1733938643
+277,Mezo Bridge,mezo-bridge,,Bridge,14700750,drop,category Bridge is not a DeFi protocol with its own contracts,thesis,,1714516311
+278,Set Protocol,set-protocol,,Indexes,14580890,review,borderline category: Indexes,SetProtocol,https://www.tokensets.com/#/security,
+279,ZEROBASE CeDeFi,zerobase-cedefi,,Basis Trading,14518801,review,borderline category: Basis Trading,,https://github.com/peckshield/publications/blob/master/audit_reports/PeckShield-Audit-Report-ZeroBase-Vault-v1.0.pdf;https://github.com/Salusec/Salus-audit/blob/main/2024/ZeroBase_report_2024-12-24.pdf,1749017141
+280,Ourbit,ourbit,,CEX,14326970,drop,category CEX is not a DeFi protocol with its own contracts,,,1731321464
+281,BYDFi,bydfi,,CEX,14254016,drop,category CEX is not a DeFi protocol with its own contracts,,,
+282,Lista Lending,lista-lending,parent#lista-dao,Lending,14243919,keep,,,https://github.com/lista-dao/moolah/tree/master/docs/audits,1744828415
+283,Juicebox V1,juicebox-v1,parent#juicebox,Launchpad,14090813,keep,,,https://hacken.io/wp-content/uploads/2022/01/%D0%A1onstitution-DAO_11012022Audit_Report.pdf,1681516871
+284,Badger DAO,badger-dao,,Yield Aggregator,13657568,review,borderline category: Yield Aggregator,Badger-Finance,https://badger.finance/wp-content/uploads/2021/01/HAECHI-AUDIT-BadgerDAO-Smart-Contract-Audit-Report-1.pdf;https://code4rena.com/contests/2022-06-badger-vested-aura-contest/;https://github.com/Badger-Finance/badger-vaults-1.5/blob/main/security/audits/Badger%20Vaults%201.5%20-%20Quantstamp%20-%20Jan%202022.pdf;https://code4rena.com/reports/2021-10-badgerdao/;https://code4rena.com/reports/2021-09-bvecvx/;https://badger.com/images/uploads/quantstamp-badger-ib-btc.pdf;https://badger.com/images/uploads/defi-yield-badger-finance.pdf;https://badger.com/images/uploads/zokyo-badger-sc-audit.pdf,
+285,Taiko Bridge,taiko-bridge,,Canonical Bridge,13606939,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,1716911519
+286,PinkSale,pinksale,,Launchpad,13493309,keep,,,,1654537684
+287,Orderly Bridge,orderly-bridge,parent#orderly-network,Bridge,13463207,drop,category Bridge is not a DeFi protocol with its own contracts,,https://github.com/OrderlyNetwork/Audits,1668086145
+288,edgeX Bridge,edgex-bridge,parent#edgex,Bridge,13380655,drop,category Bridge is not a DeFi protocol with its own contracts,,,1723024710
+289,Arbitrum Nova Bridge,arbitrum-nova-bridge,,Canonical Bridge,12756542,drop,category Canonical Bridge is not a DeFi protocol with its own contracts,,,
+290,Aevo Perps,aevo-perps,parent#aevo,Derivatives,12718087,review,borderline category: Derivatives,,https://github.com/aevoxyz/audit,1681122429
+291,3Jane Lending,3jane-lending,parent#3jane,Uncollateralized Lending,12423638,keep,,,https://docs.3jane.xyz/resources/audits,1756929047
+292,Native Credit Pool,native-credit-pool,parent#native,Lending,11931464,keep,,,,1716459034
+293,Veno Finance,veno-finance,,Liquid Staking,11912791,keep,,,https://veno-finance.gitbook.io/veno-finance/protocol/security-and-audits,1672703979
+294,UNCX Network V3,uncx-network-v3,parent#uncx-network,Token Locker,11805872,review,sibling version of UNCX Network V2 (separate codebase?),,https://blog.openzeppelin.com/uncx-uniswapv3-liquidity-locker-audit,1688652343
+295,zkLink Nova,zklink-nova,,Chain,11532199,drop,category Chain is not a DeFi protocol with its own contracts,,https://github.com/zkLinkProtocol/zklink-audit-report/blob/master/zklink_Nova_Secure3_Audit_Report.pdf,
+296,Fuel Bridge,fuel-bridge,,Bridge,11485461,drop,category Bridge is not a DeFi protocol with its own contracts,,https://github.com/FuelLabs/audits/blob/master/fuel-audit-september-2024(Diffs%20on%20the%20Bridge%20and%20State%20Contracts)(Public).pdf,
+297,Templar Protocol,templar-protocol,,Lending,11473189,keep,,Templar-Protocol,https://github.com/Templar-Protocol/contracts/blob/dev/audits/2025-07-01/guvenkaya/Templar-NEAR-Smart-Contract-Security-Review-Final-Report.pdf;https://github.com/Templar-Protocol/contracts/blob/dev/audits/2025-07-01/thesis_defense/250701_Defense_by_Thesis_Templar_Smart_Contracts_Final_Security.pdf,1755011603
+298,OrangeX,orangex,,CEX,11219499,drop,category CEX is not a DeFi protocol with its own contracts,,,1744103517
+299,Flying Tulip Lend,flying-tulip-lend,parent#flying-tulip,Lending,11193012,keep,,,https://docs.flyingtulip.com/risks/,1769459609
+300,YieldFi,yieldfi,,Yield Aggregator,11189819,review,borderline category: Yield Aggregator,YieldFiLabs,https://docs.yield.fi/resources/audits,1736184965

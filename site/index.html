@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeFi DevOps Practices</title>
+<meta name="description" content="Which DevOps practices do Ethereum DeFi protocols actually use? Measured from public repositories, with evidence for every cell.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a href="#ranking">Adoption</a>
+    <a href="#said-vs-run">Said vs. run</a>
+    <a href="#stages">Lifecycle</a>
+    <a href="#upgradeability">Upgradeable vs. immutable</a>
+    <a href="#toolchain">Toolchain</a>
+    <a href="#heatmap">Explorer</a>
+    <a href="#methods">Methods</a>
+    <span class="spacer"></span>
+    <button class="plain" id="theme" type="button" aria-label="Toggle color theme">Theme</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <h1>Which DevOps practices do DeFi protocols actually use?</h1>
+    <p class="lede">A practice-by-practice reading of the public repositories of influential, original Ethereum DeFi protocols. Every cell links to the file that produced it, pinned to a commit.</p>
+    <div class="banner" id="banner" hidden></div>
+    <div class="kpis" id="kpis"></div>
+  </header>
+
+  <section id="ranking">
+    <h2>How common is each practice?</h2>
+    <p class="sub">Share of protocols where the practice applies and was found. Practices that don't apply to a protocol (for example upgrade checks on an immutable one) are left out of that practice's denominator.</p>
+    <div class="controls">
+      <span>Count a tool as adopted when it is</span>
+      <div class="seg" id="mode-seg" role="group" aria-label="Adoption threshold">
+        <button type="button" data-mode="any" aria-pressed="true">configured or better</button>
+        <button type="button" data-mode="ci" aria-pressed="false">run in CI</button>
+      </div>
+    </div>
+    <div class="rows" id="ranking-rows"></div>
+    <p class="note">Yes/no practices are unaffected by the threshold. n = protocols where the practice applies.</p>
+    <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="ranking-tbl"></div></details>
+  </section>
+
+  <section id="said-vs-run">
+    <h2>Said vs. run in CI</h2>
+    <p class="sub">For each tool-like practice: how far did adoption get? “Mentioned” means only docs or comments. “Configured” means a config file or script exists. “Run in CI” means a workflow triggered by pushes or pull requests invokes it.</p>
+    <div class="legend" id="lv-legend"></div>
+    <div class="rows" id="svr-rows"></div>
+    <p class="note">Whether a CI check is <em>required</em> before merging is a branch-protection setting held on GitHub's servers, not in the repository, so it cannot be observed here.</p>
+    <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="svr-tbl"></div></details>
+  </section>
+
+  <section id="stages">
+    <h2>Where in the lifecycle is the effort?</h2>
+    <p class="sub">For each protocol, the share of applicable practices found at each lifecycle stage, averaged across protocols. Stages group the ten dimensions: build → launch → governance → operate → assure.</p>
+    <div class="rows" id="stage-rows"></div>
+    <p class="note">Post-launch practices are the least visible in public repositories; a low bar there partly reflects what teams keep private.</p>
+    <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="stage-tbl"></div></details>
+  </section>
+
+  <section id="upgradeability">
+    <h2>Upgradeable vs. immutable</h2>
+    <p class="sub">Do protocols that can't be patched after launch invest more before it? Share adopting each practice, by whether the contracts holding user funds can be upgraded.</p>
+    <div class="legend" id="up-legend"></div>
+    <div id="up-rows"></div>
+    <p class="note" id="up-note"></p>
+    <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="up-tbl"></div></details>
+  </section>
+
+  <section id="toolchain">
+    <h2>Toolchain by launch cohort</h2>
+    <p class="sub">What the repositories use <em>today</em>, grouped by when the protocol launched. This is a snapshot of current tooling, not a history of when each practice was adopted.</p>
+    <div class="legend" id="fw-legend"></div>
+    <div class="rows" id="fw-rows"></div>
+    <h3 style="font-size:15px;margin:22px 0 8px">Foundry-era practices, by cohort</h3>
+    <div class="legend" id="co-legend"></div>
+    <div id="co-rows"></div>
+    <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="tc-tbl"></div></details>
+  </section>
+
+  <section id="heatmap">
+    <h2>Explorer</h2>
+    <p class="sub">One row per protocol, one column per dimension. Shade is the share of applicable practices found. Select a cell to see each practice, its level, and the evidence, linked to the exact file and line at the scanned commit.</p>
+    <div class="controls" id="heat-controls">
+      <label for="heat-q">Find</label>
+      <input type="search" id="heat-q" placeholder="protocol name" autocomplete="off">
+      <label for="heat-up">Show</label>
+      <select id="heat-up"></select>
+      <label for="heat-sort">Sort by</label>
+      <select id="heat-sort"></select>
+      <button class="plain" type="button" id="heat-reset">Reset</button>
+      <span id="heat-count" aria-live="polite"></span>
+    </div>
+    <div class="heat" id="heat"></div>
+    <div class="scale" id="heat-scale"></div>
+    <div id="detail" aria-live="polite"></div>
+  </section>
+
+  <section id="methods">
+    <h2>Methods</h2>
+    <div class="methods" id="methods-box"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+<div id="tip" role="tooltip"></div>
+<script src="data/data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

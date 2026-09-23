@@ -1,0 +1,51 @@
+# 20-protocol sample. TVL/category/audit_links come from data/sources/defillama_2026-09-21.json.
+# upgradeability / has_admin_role / launch_year are HAND labels -- all label_status=draft, review before use.
+# upgradeability: immutable | upgradeable | mixed (contracts that hold user funds)
+# scope_gaps: deploy | governance | audits  (';'-separated)
+protocol_id,name,parent_id,category,launch_year,upgradeability,has_admin_role,defillama_slug,tvl_eth_usd,tvl_snapshot_date,audit_links,scope_gaps,label_status,notes
+uniswap-v4,Uniswap V4,uniswap,Dexs,2025,immutable,yes,uniswap-v4,756013653,2026-09-21,https://github.com/Uniswap/v4-core/tree/main/docs/security/audits;https://github.com/Uniswap/v4-periphery/tree/main/audits,,draft,PoolManager has no proxy; owner sets protocol fees
+aave-v3,Aave V3,aave,Lending,2022,upgradeable,yes,aave-v3,15729044884,2026-09-21,https://aave.com/security,governance,draft,proposals live in aave-dao/aave-proposals-v3
+morpho-blue,Morpho Blue,morpho,Lending,2024,immutable,yes,morpho-blue,5093100665,2026-09-21,https://docs.morpho.org/morpho-blue/concepts/security/audits/,,draft,immutable core; owner enables IRMs/LLTVs
+compound-comet,Compound V3,compound,Lending,2022,upgradeable,yes,compound-v3,1415708279,2026-09-21,https://compound.finance/docs/security,,draft,
+lido-core,Lido,lido,Liquid Staking,2020,upgradeable,yes,lido,26700881349,2026-09-21,https://github.com/lidofinance/audits,,draft,Aragon-app based
+curve,Curve DEX,curve,Dexs,2020,immutable,yes,curve-dex,1259335414,2026-09-21,https://docs.curve.finance/references/audits/,,draft,Vyper: exercises the no_solidity N/A path
+rocket-pool,Rocket Pool,rocketpool,Liquid Staking,2021,upgradeable,yes,rocket-pool,1426042908,2026-09-21,https://rocketpool.net/files/sigma-prime-audit.pdf;https://consensys.net/diligence/audits/2021/04/rocketpool;https://github.com/trailofbits/publications/blob/master/reviews/RocketPool.pdf;https://immunefi.com/bounty/rocketpool,,draft,upgrades via rocketStorage
+liquity-v1,Liquity V1,liquity,CDP,2021,immutable,no,liquity-v1,197811428,2026-09-21,https://github.com/trailofbits/publications/blob/master/reviews/Liquity.pdf;https://www.coinspect.com/liquity-audit/,,draft,governance-free by design: admin vars should be N/A
+liquity-v2,Liquity V2,liquity,CDP,2025,immutable,yes,liquity-v2,106037894,2026-09-21,https://docs.liquity.org/v2-documentation/technical-resources,,draft,same parent as v1
+pendle-v2,Pendle V2,pendle,Yield,2023,mixed,yes,pendle-v2,724947220,2026-09-21,https://github.com/pendle-finance/pendle-core-v2-public/tree/main/audits,,draft,
+eigenlayer,EigenCloud,eigenlayer,Restaking,2023,upgradeable,yes,eigencloud,7172291910,2026-09-21,https://docs.eigencloud.xyz/eigenlayer/security/audits,,draft,
+ether-fi,ether.fi Stake,etherfi,Liquid Staking,2023,upgradeable,yes,ether.fi-stake,5096978592,2026-09-21,,,draft,
+stakewise-v3,StakeWise V3,stakewise,Liquid Staking,2023,upgradeable,yes,stakewise-v3,1030391472,2026-09-21,https://github.com/stakewise/contracts/tree/master/audits,,draft,
+symbiotic,Symbiotic,symbiotic,Collateral Markets,2024,immutable,yes,symbiotic,482912325,2026-09-21,https://github.com/symbioticfi/collateral/tree/main/audits,,draft,
+nexus-mutual,Nexus Mutual,nexusmutual,Insurance,2019,upgradeable,yes,nexus-mutual,116146891,2026-09-21,https://nexusmutual.gitbook.io/docs/helpful-resources/audits-and-security,,draft,
+sky-lending,Sky Lending,maker,CDP,2019,immutable,yes,sky-lending,5687021760,2026-09-21,https://security.makerdao.com/,,draft,dss core is immutable; governance swaps modules
+maple-v2,Maple,maple,Lending,2022,upgradeable,yes,maple,2985858609,2026-09-21,https://github.com/maple-labs/maple-core#audit-reports,,draft,
+fluid,Fluid Lending,fluid,Lending,2024,upgradeable,yes,fluid-lending,530179335,2026-09-21,https://docs.fluid.instadapp.io/audits-and-security.html,,draft,
+balancer-v3,Balancer V3,balancer,Dexs,2024,immutable,yes,balancer-v3,15089010,2026-09-21,,,draft,monorepo: several packages under pkg/
+euler-v2,Euler V2,euler,Lending,2024,immutable,yes,euler-v2,58166434,2026-09-21,https://www.euler.finance/#security,,draft,
+uniswap-v3,Uniswap V3,uniswap,Dexs,2021,immutable,yes,uniswap-v3,924287145,2026-09-21,https://github.com/Uniswap/uniswap-v3-core/tree/main/audits;https://github.com/Uniswap/uniswap-v3-periphery/tree/main/audits;https://github.com/ConsenSys/Uniswap-audit-report-2018-12,,draft,
+uniswap-v2,Uniswap V2,uniswap,Dexs,2020,immutable,yes,uniswap-v2,818437987,2026-09-21,https://github.com/Uniswap/uniswap-v3-core/tree/main/audits;https://github.com/Uniswap/uniswap-v3-periphery/tree/main/audits;https://github.com/ConsenSys/Uniswap-audit-report-2018-12,,draft,
+aave-v2,Aave V2,aave,Lending,2020,upgradeable,yes,aave-v2,86227977,2026-09-21,https://aave.com/security,,draft,
+compound-v2,Compound V2,compound,Lending,2019,upgradeable,yes,compound-v2,112694128,2026-09-21,https://compound.finance/docs/security,,draft,
+balancer-v2,Balancer V2,balancer,Dexs,2021,immutable,yes,balancer-v2,23354228,2026-09-21,https://github.com/balancer/balancer-v2-monorepo/tree/master/audits,,draft,
+bancor-v3,Bancor V3,bancor,Dexs,2022,upgradeable,yes,bancor-v3,17324291,2026-09-21,https://docs.bancor.network/about-bancor-network/security-and-audits,,draft,
+convex,Convex Finance,convex,Yield,2021,immutable,yes,convex-finance,605580004,2026-09-21,https://github.com/convex-eth/platform/blob/main/audit/Convex%20Platform%20Security%20Audit%20Report.pdf,,draft,
+yearn-v3,Yearn Finance,yearn,Yield Aggregator,2023,immutable,yes,yearn-finance,178781514,2026-09-21,https://github.com/yearn/yearn-security/tree/master/audits,,draft,
+enzyme,Enzyme Finance,enzyme,Indexes,2021,upgradeable,yes,enzyme-finance,91248100,2026-09-21,https://audit.enzyme.finance/,,draft,
+set-protocol-v2,Set Protocol,setprotocol,Indexes,2021,upgradeable,yes,set-protocol,14580890,2026-09-21,https://www.tokensets.com/#/security,,draft,
+reserve,Reserve Protocol,reserve,Indexes,2022,upgradeable,yes,reserve-protocol,35544815,2026-09-21,https://reserve.org/protocol/security/?search=audit#s-result,,draft,
+alchemix-v3,Alchemix V3,alchemix,Synthetics,2024,upgradeable,yes,alchemix-v3,38032595,2026-09-21,https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v3.pdf,,draft,
+gearbox-v3,Gearbox,gearbox,Lending,2023,upgradeable,yes,gearbox,22382308,2026-09-21,https://docs.gearbox.finance/risk-and-security/audits-bug-bounty,,draft,
+silo-v2,Silo V2,silo,Lending,2024,immutable,yes,silo-v2,1598269,2026-09-21,https://docs.silo.finance/audits-and-tests,,draft,
+dolomite,Dolomite,dolomite,Lending,2022,upgradeable,yes,dolomite,321770280,2026-09-21,https://github.com/dolomite-exchange/dolomite-margin/blob/master/docs/Dolomite%20Margin%20-%20Cyfrin%20-%202023-08-23.pdf;https://github.com/dolomite-exchange/dolomite-margin/blob/master/docs/Dolomite%20Margin%20-%20SECBIT%20-%202021-08-02.pdf,,draft,
+m0,M0,m0,Stablecoin Issuer,2024,upgradeable,yes,m0,197147618,2026-09-21,https://docs.m0.org/portal/technical/audits,,draft,
+huma-v2,Huma Finance V2,huma,RWA,2024,upgradeable,yes,huma-finance-v2,158214181,2026-09-21,https://docs.huma.finance/ecosystem-resources/security-audits,,draft,
+derive-v2,Derive V2,derive,Derivatives,2024,upgradeable,yes,derive-v2,34763351,2026-09-21,,,draft,
+kelp,Kelp,kelp,Liquid Restaking,2023,upgradeable,yes,kelp,1169411053,2026-09-21,https://kelp.gitbook.io/kelp/audits,,draft,
+renzo,Renzo,renzo,Liquid Restaking,2024,upgradeable,yes,renzo,87919451,2026-09-21,https://docs.renzoprotocol.com/docs/security/audits,,draft,
+puffer,Puffer Stake,puffer,Liquid Restaking,2024,upgradeable,yes,puffer-stake,32160723,2026-09-21,,,draft,
+liquid-collective,Liquid Collective,liquidcollective,Liquid Staking,2022,upgradeable,yes,liquid-collective,875483823,2026-09-21,https://liquidcollective.io/security-audits,,draft,
+stader-ethx,Stader,stader,Liquid Staking,2023,upgradeable,yes,stader,239933623,2026-09-21,https://www.staderlabs.com/docs-v1/category/auditors;https://kp5hfcaxs2prkdoscwibtrbjjddvoov3huhezsxknanxfaucm76a.arweave.net/U_pyiBeWnxUN0hWQGcQpSMdXOrs9DkzK6mgbcoKCZ_w;https://github.com/HalbornSecurity/PublicReports/blob/master/CosmWasm%20Smart%20Contract%20Audits/Stader_Labs_LunaX_Contrracts_CosmWasm_Smart_Contract_Security_Audit_Report_Halborn_Final.pdf,,draft,
+nodedao,NodeDAO,nodedao,Liquid Staking,2022,upgradeable,yes,nodedao,39212645,2026-09-21,https://www.nodedao.com/paf/MetaTrust.pdf;https://www.nodedao.com/paf/BEOSIN.pdf,,draft,
+frax-eth,Frax Ether,frax,Liquid Staking,2022,upgradeable,yes,frax-ether,138670730,2026-09-21,,,draft,
+cap,cap,cap,Lending,2025,upgradeable,yes,cap,365944228,2026-09-21,https://github.com/cap-labs-dev/cap-audits,,draft,
