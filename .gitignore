@@ -12,8 +12,9 @@ out/
 .env.*
 !.env.example
 
-# editor / OS noise
+# editor / OS / local tool noise
 .vscode/
+.claude/
 .idea/
 .DS_Store
 

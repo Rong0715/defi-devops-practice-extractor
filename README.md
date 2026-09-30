@@ -6,17 +6,20 @@ permalink pinned to the scanned commit) that produced it, so any number can be c
 
 Standard library only (Python 3.11+) plus `git`. Sampling and the static site are described below.
 
+**Findings page:** <https://rong0715.github.io/defi-devops-practice-extractor/> (provisional: extractor
+accuracy has not been measured yet, see [Known limits](#known-limits)).
+
 ## Pipeline
 
 ```text
-data/protocols.csv + data/repos.csv
+data/protocols.csv + data/repos.csv            the sample (see Sampling for how it is chosen and checked)
         │  extract.py: shallow clone → probe every variable → merge repos → apply N/A rules
         ▼
 out/                      (gitignored)  <protocol>.json  all.json  matrix.csv  matrix_long.csv
                                         variables.csv  run.json (skips, clone failures, cell-status counts)
-        │  tools/build_site_data.py
+        │  tools/build_site_data.py   (+ data/mapping_check.csv, data/mapping_review.csv)
         ▼
-site/data/data.js         (committed)   → open site/index.html
+site/data/data.js         (committed)   → open site/index.html; a push to main redeploys GitHub Pages
 ```
 
 ### Quickstart
@@ -29,11 +32,12 @@ python3 tools/build_site_data.py   # 2. out/all.json -> site/data/data.js
 python3 tools/serve.py             # 3. http://127.0.0.1:8000
 ```
 
-Step 1 is the slow one on a cold start: it shallow-clones each repo (46 protocols ≈ 3.3 GB, a few
-minutes on a fast connection). Repos and results are cached, so afterwards the loop is just:
+Step 1 is the slow one on a cold start: it shallow-clones each repo (100 subjects ≈ 4.8 GB, a few
+minutes on a fast connection). Repos and results are cached, and protocols are scanned in parallel
+(`--jobs`), so afterwards the loop takes about 15 s:
 
 ```bash
-python3 extract.py --no-clone && python3 tools/build_site_data.py   # ~30s for 46 protocols
+python3 extract.py --no-clone && python3 tools/build_site_data.py
 ```
 
 then reload the page. `tools/serve.py` sends `no-store`, so a plain reload always shows the
@@ -44,15 +48,35 @@ Other flags:
 ```bash
 python3 extract.py aave-v3 morpho-blue   # only these protocols
 python3 extract.py --resume              # skip protocols already written to out/ (crash-safe reruns)
-python3 -m unittest discover tests       # 17 unit tests for the CI engine and merge rules
-open site/index.html                     # works straight from disk too; deployable as-is to GitHub Pages
+python3 -m unittest discover tests       # unit tests: CI engine, merge rules, one-per-family, repo matcher
+python3 tools/check_sample.py            # sample, review log and repo mapping agree (run after editing data/)
+open site/index.html                     # works straight from disk too
 ```
+
+### Changing the sample
+
+```bash
+python3 tools/rank_candidates.py         # 1. candidate pool from the committed DefiLlama snapshot
+#                                          2. decide candidates in data/review.csv; add included ones to
+#                                             data/protocols.csv and data/repos.csv
+python3 tools/verify_mapping.py <ids>    # 3. tie each new repo to the protocol's deployed contracts
+python3 tools/check_sample.py            # 4. must pass; its warnings list what still needs a person
+python3 extract.py --jobs 8 && python3 tools/build_site_data.py
+```
+
+### Publishing
+
+[.github/workflows/pages.yml](.github/workflows/pages.yml) uploads `site/` to GitHub Pages on every push to
+`main` that touches `site/`. Nothing is scanned in CI: rebuild `site/data/data.js` locally and commit it.
 
 ## Input
 
-The current sample is **46 protocols** (see [data/protocols.csv](data/protocols.csv)), drawn from the
-candidate pool `tools/rank_candidates.py` produces. Every repo URL was verified to exist and checked
-by hand against its file listing before being added.
+The current sample is **100 subjects from 85 protocol families** (see [data/protocols.csv](data/protocols.csv)):
+the candidate pool `tools/rank_candidates.py` produces, reviewed by hand in Ethereum-TVL order until the
+100th inclusion (TVL rank 380). Every decision, include or exclude, is logged with its reason in
+[data/review.csv](data/review.csv). Every repo was checked against its file listing before being added,
+and 79 of 100 are confirmed against the protocol's deployed contracts (see
+[Is the repo the protocol's code?](#is-the-repo-the-protocols-code)).
 
 - [data/protocols.csv](data/protocols.csv): one row per **subject** (one version of a codebase, e.g. `aave-v3`).
   Context labels are **hand labels**: `upgradeability` (`immutable` / `upgradeable` / `mixed`, judged on the
@@ -60,6 +84,9 @@ by hand against its file listing before being added.
   `label_status=draft` marks labels that are pre-filled and still need review.
 - [data/repos.csv](data/repos.csv): one or more repos per protocol, each with a `role` (`core`, `periphery`,
   `governance`, `deploy`), an optional `subpath` for monorepos, and `include`.
+- [data/review.csv](data/review.csv): the include / exclude decision and reason for every candidate down to the cutoff.
+- [data/mapping_check.csv](data/mapping_check.csv) (generated by `verify_mapping.py`) and
+  [data/mapping_review.csv](data/mapping_review.csv) (hand decisions): is each repo the protocol's real code?
 
 ## Code map
 
@@ -76,8 +103,10 @@ by hand against its file listing before being added.
 | [tools/rank_candidates.py](tools/rank_candidates.py) | Ranks Ethereum protocols by TVL into keep / review / drop, with a reason per row. |
 | [tools/odd_repos.py](tools/odd_repos.py) | Replays Electric Capital's open-dev-data migration DSL to map a protocol to its repos. |
 | [tools/map_repos.py](tools/map_repos.py) | Suggests a protocol's core contracts repo (shortlist for human review, not an answer). |
+| [tools/verify_mapping.py](tools/verify_mapping.py) | Ties each repo to the contracts that hold the protocol's funds (DefiLlama TVL adapter → Etherscan verified source → declared in the repo?) → `data/mapping_check.csv`. |
+| [tools/check_sample.py](tools/check_sample.py) | Checks the review log is complete down to the cutoff, matches `protocols.csv`, and warns on suspicious repo mappings. |
 | [tools/serve.py](tools/serve.py) | Local no-cache dev server for `site/`. |
-| [site/](site/) | Static page (vanilla HTML/JS/CSS): ranking, said-vs-run, lifecycle stages, upgradeable-vs-immutable, toolchain by cohort, heatmap explorer with evidence drill-down, methods. |
+| [site/](site/) | Static page (vanilla HTML/JS/CSS): ranking with 95% intervals, said-vs-run, lifecycle stages, upgradeable-vs-immutable, toolchain by cohort, heatmap explorer (sortable by TVL, overall score, category, family, recency, or any dimension) with evidence drill-down, methods. Charts count one subject per family by default, with a switch to every version. |
 
 ## Variables
 
@@ -137,8 +166,31 @@ of the protocol's repos. `per_repo` values are kept in the JSON so the source of
 
 ```bash
 python3 tools/fetch_defillama.py        # once: data/sources/defillama_<date>.json (committed; the date is the snapshot)
-python3 tools/rank_candidates.py        # data/candidates.csv: rank, verdict (keep / review / drop) and a reason for every row
+python3 tools/rank_candidates.py        # data/candidates.csv: top 600, verdict (keep / review / drop) and a reason for every row
+python3 tools/check_sample.py           # after hand review: data/review.csv complete and consistent with protocols.csv
 ```
+
+### The walk
+
+Candidates are taken in Ethereum-TVL order. `drop` (exchanges, bridges including cross-chain bridges,
+chains, forks, deprecated) is automatic; every `keep` or `review` row down to the last included protocol
+gets a hand decision in `data/review.csv`. A candidate is excluded when it:
+
+- has no public contracts repository, or only an archived audit-contest snapshot;
+- is custodial (CeDeFi, exchange-issued tokens) or a pre-deposit points farm;
+- shares a codebase with a subject already included (Fluid DEX, LlamaLend, Origin Dollar);
+- is a fork the DefiLlama flag missed (Lista Lending and 3Jane both ship Morpho Blue);
+- cannot be mapped to one repository with confidence. The `cap` subject once pointed at an unrelated
+  2021 project called Cap, which is why `check_sample.py` now warns when a repo's owner is not a
+  DefiLlama-listed org, or its last commit is more than a year older than the protocol's listing.
+
+### Protocol families
+
+Versions and sibling products of one team (Uniswap V1/V2/V3/V4 are all candidates) are separate subjects.
+Headline statistics on the site count **one subject per family** (`parent_id`): its latest version by
+launch year, ties broken by TVL. Counting every version is available as a robustness check.
+
+### The DefiLlama snapshot
 
 DefiLlama's `/protocols` returns *current* values, so the download date is the snapshot date; committing the
 file is what makes the sample reproducible. Things the live data taught us:
@@ -147,6 +199,8 @@ file is what makes the sample reproducible. Things the live data taught us:
 - `openSource` is empty for nearly every protocol, so closed-source protocols must be removed by hand.
 - `github` is often missing on the protocol itself (it sits on the parent).
 - The raw Ethereum top 100 is roughly a third CEXs and bridges, so the category filter matters.
+- Slugs get renamed (`huma-finance-v2` is now `huma`); the numeric `id` is stable. `module` is the path of
+  the protocol's TVL adapter; snapshots fetched from now on keep it.
 
 ### Mapping a protocol to its repo
 
@@ -166,10 +220,41 @@ Measured against 20 repos that had been chosen by hand:
 An ecosystem holds everything its community wrote (Uniswap: 1426 repos), so name-only ranking
 promotes forks such as `morpho-org/openzeppelin-contracts`. At ~50 % top-1 the shortlist is a
 review aid, not a sample: picking automatically would measure roughly half the protocols against
-the wrong code. Hence every repo in `data/repos.csv` was confirmed by hand.
+the wrong code. Hence every repo in `data/repos.csv` is chosen by hand, then checked against the deployed
+contracts as below.
 
 `candidates.csv` is a starting point for hand review, not the sample: every removal keeps its reason so the
 exclusion log is complete. Chosen protocols then go into `data/protocols.csv` and `data/repos.csv`.
+
+### Is the repo the protocol's code?
+
+A wrong repo silently corrupts every number for its protocol, and name-based checks cannot catch it.
+`tools/verify_mapping.py` checks each mapping against evidence the repo cannot supply itself:
+
+1. DefiLlama's TVL adapter for the protocol ([DefiLlama-Adapters](https://github.com/DefiLlama/DefiLlama-Adapters),
+   either `projects/<module>` or the protocol's entry in a shared `registries/*.js` file) names the contracts
+   the protocol's funds sit in. Addresses that 3+ protocols' adapters share (WETH, but also Balancer's Vault)
+   are tried after the protocol's own;
+2. Etherscan returns the verified source name of each address on Ethereum, following a proxy to its
+   implementation;
+3. the repo is **confirmed** when it declares one of those contracts under a name found in at most three of
+   the sample's repos, or ships the same source file (interfaces never count: integrators copy them). Vyper
+   contracts, which Etherscan often names `Vyper_contract`, are matched by their set of function names.
+   When the adapter names no contract (it fetches them from an API), the protocol's token is tried instead.
+
+Current result: **79 confirmed**, 16 `no_match` (DefiLlama lists only tokens, an older version, or bridged
+assets), 5 `no_evidence`. As a control, the unrelated repo `cap` once pointed at declares none of the 12
+contracts deployed for cap; the corrected repo declares them.
+
+The unconfirmed ones are what a person still needs to look at; `check_sample.py` lists them with the
+deployed names that did not match. Record the outcome in [data/mapping_review.csv](data/mapping_review.csv):
+`confirmed`, or `doubtful` to keep the protocol but flag it. A wrong repo is fixed in `repos.csv` instead.
+The site's explorer marks every protocol (filled ✓ confirmed by the tool, outlined ✓ confirmed by hand,
+`?` not yet, `!` doubtful) and can filter to either group.
+
+The check needs a free Etherscan API key: copy `.env.example` to `.env` (git-ignored, never committed) and
+fill in `ETHERSCAN_API_KEY`. Answers are cached in `out/etherscan/`, the adapters in `repos/.defillama-adapters`,
+and the DefiLlama module list in `data/sources/defillama_modules_<date>.json`.
 
 ## Known limits
 
@@ -178,18 +263,26 @@ exclusion log is complete. Chosen protocols then go into `data/protocols.csv` an
 - One commit per repo (shallow clone); no git history, no on-chain data. The data model leaves room for both.
 - Workflow `paths:` / `branches:` filters are not evaluated, so a job that only runs for certain paths still counts as running in CI.
 - Extractor accuracy against hand labels has **not yet been measured**; treat every number as unvalidated.
+- 21 of 100 repos are not yet tied to the protocol's deployed contracts and await a hand check
+  (`python3 tools/check_sample.py` lists them). Huma V2, Derive V2, Superstate and Obol are the doubtful ones:
+  their Ethereum TVL may not come from the scanned code.
+- The context labels of the 54 subjects added in the 100-subject scale-up are first drafts, like the rest
+  (`label_status=draft`); the hand label and the probed proxy pattern disagree for some of them, which is
+  the natural place to start reviewing.
 - `monitoring_tools` is weak (many mentions are development-time use) and should be flagged or dropped after validation.
 
 ## Credits and data licence
 
-Protocol metadata and TVL come from [DefiLlama](https://defillama.com). Protocol-to-repository
-mapping is helped by [Electric Capital's open-dev-data](https://github.com/electric-capital/open-dev-data),
-whose data is **CC BY 4.0** — credit Electric Capital in anything published from it.
+Protocol metadata and TVL come from [DefiLlama](https://defillama.com), and the contract addresses used to
+verify repo mappings from its [TVL adapters](https://github.com/DefiLlama/DefiLlama-Adapters); verified
+contract names come from [Etherscan](https://etherscan.io). Protocol-to-repository mapping is helped by
+[Electric Capital's open-dev-data](https://github.com/electric-capital/open-dev-data), whose data is
+**CC BY 4.0** — credit Electric Capital in anything published from it.
 
 ## Repo hygiene
 
 Repos are cloned once per URL, so protocols that share a monorepo do not clone it twice. Each
 protocol's JSON is written as it finishes, so an interrupted run resumes with `--resume`.
 
-`repos/` and `out/` are generated and gitignored. Committed: code, `data/`, `tests/`, and `site/` including
-`site/data/data.js` (GitHub Pages needs it).
+`repos/` and `out/` are generated and gitignored, and so is `.env` (API keys). Committed: code, `data/`,
+`tests/`, and `site/` including `site/data/data.js` (GitHub Pages needs it).

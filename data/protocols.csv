@@ -1,4 +1,5 @@
-# 20-protocol sample. TVL/category/audit_links come from data/sources/defillama_2026-09-21.json.
+# 100-subject sample: Ethereum-TVL walk over data/candidates.csv, every decision logged in data/review.csv.
+# TVL/category/audit_links come from data/sources/defillama_2026-09-21.json.
 # upgradeability / has_admin_role / launch_year are HAND labels -- all label_status=draft, review before use.
 # upgradeability: immutable | upgradeable | mixed (contracts that hold user funds)
 # scope_gaps: deploy | governance | audits  (';'-separated)
@@ -36,7 +37,6 @@ set-protocol-v2,Set Protocol,setprotocol,Indexes,2021,upgradeable,yes,set-protoc
 reserve,Reserve Protocol,reserve,Indexes,2022,upgradeable,yes,reserve-protocol,35544815,2026-09-21,https://reserve.org/protocol/security/?search=audit#s-result,,draft,
 alchemix-v3,Alchemix V3,alchemix,Synthetics,2024,upgradeable,yes,alchemix-v3,38032595,2026-09-21,https://github.com/runtimeverification/publications/blob/main/reports/smart-contracts/Alchemix_v3.pdf,,draft,
 gearbox-v3,Gearbox,gearbox,Lending,2023,upgradeable,yes,gearbox,22382308,2026-09-21,https://docs.gearbox.finance/risk-and-security/audits-bug-bounty,,draft,
-silo-v2,Silo V2,silo,Lending,2024,immutable,yes,silo-v2,1598269,2026-09-21,https://docs.silo.finance/audits-and-tests,,draft,
 dolomite,Dolomite,dolomite,Lending,2022,upgradeable,yes,dolomite,321770280,2026-09-21,https://github.com/dolomite-exchange/dolomite-margin/blob/master/docs/Dolomite%20Margin%20-%20Cyfrin%20-%202023-08-23.pdf;https://github.com/dolomite-exchange/dolomite-margin/blob/master/docs/Dolomite%20Margin%20-%20SECBIT%20-%202021-08-02.pdf,,draft,
 m0,M0,m0,Stablecoin Issuer,2024,upgradeable,yes,m0,197147618,2026-09-21,https://docs.m0.org/portal/technical/audits,,draft,
 huma-v2,Huma Finance V2,huma,RWA,2024,upgradeable,yes,huma-finance-v2,158214181,2026-09-21,https://docs.huma.finance/ecosystem-resources/security-audits,,draft,
@@ -48,4 +48,59 @@ liquid-collective,Liquid Collective,liquidcollective,Liquid Staking,2022,upgrade
 stader-ethx,Stader,stader,Liquid Staking,2023,upgradeable,yes,stader,239933623,2026-09-21,https://www.staderlabs.com/docs-v1/category/auditors;https://kp5hfcaxs2prkdoscwibtrbjjddvoov3huhezsxknanxfaucm76a.arweave.net/U_pyiBeWnxUN0hWQGcQpSMdXOrs9DkzK6mgbcoKCZ_w;https://github.com/HalbornSecurity/PublicReports/blob/master/CosmWasm%20Smart%20Contract%20Audits/Stader_Labs_LunaX_Contrracts_CosmWasm_Smart_Contract_Security_Audit_Report_Halborn_Final.pdf,,draft,
 nodedao,NodeDAO,nodedao,Liquid Staking,2022,upgradeable,yes,nodedao,39212645,2026-09-21,https://www.nodedao.com/paf/MetaTrust.pdf;https://www.nodedao.com/paf/BEOSIN.pdf,,draft,
 frax-eth,Frax Ether,frax,Liquid Staking,2022,upgradeable,yes,frax-ether,138670730,2026-09-21,,,draft,
-cap,cap,cap,Lending,2025,upgradeable,yes,cap,365944228,2026-09-21,https://github.com/cap-labs-dev/cap-audits,,draft,
+cap,cap,cap,Lending,2025,upgradeable,yes,cap,365944228,2026-09-21,https://github.com/cap-labs-dev/cap-audits,,draft,"repo corrected 2026-09-30: was capfina/protocol, an unrelated 2021 project"
+ssv-network,SSV Network,ssv,Staking Pool,2023,upgradeable,yes,ssv-network,14292805692,2026-09-21,,,draft,DVT staking infrastructure
+spark-savings,Spark Savings,spark,Yield,2025,upgradeable,yes,spark-savings,985773645,2026-09-21,,,draft,Spark Vaults V2; SparkLend itself is an Aave V3 fork and was dropped
+obol,Obol,obol,Staking Pool,2023,immutable,no,obol,634503246,2026-09-21,,,draft,split/withdrawal-recipient contracts are immutable clones
+meth,mETH Protocol,meth,Liquid Staking,2023,upgradeable,yes,meth-protocol,622497645,2026-09-21,,,draft,Mantle LSP; Mantle Restaking shares this codebase
+superstate-ustb,Invesco USTB,superstate,RWA,2023,upgradeable,yes,invesco-ustb,532752942,2026-09-21,,,draft,tokenised fund (Superstate); permissioned token
+aave-v4,Aave V4,aave,Lending,2026,upgradeable,yes,aave-v4,423017789,2026-09-21,https://aave.com/security,,draft,
+defi-saver,Defi Saver Asset Management,defi-saver,CDP Manager,2020,upgradeable,yes,defi-saver-asset-management,356334920,2026-09-21,https://consensys.net/diligence/audits/2021/03/defi-saver/,,draft,actions swapped through a registry
+olympus-cooler,Cooler Loans,olympus,Lending,2023,upgradeable,yes,cooler-loans,235344245,2026-09-21,,,draft,repo is all of Olympus V3 (Default kernel); Cooler Loans live inside it
+crvusd,crvUSD,curve,CDP,2023,immutable,yes,crvusd,161769904,2026-09-21,https://docs.curve.finance/references/audits/#curve-stablecoin-and-lending,,draft,Vyper; the same repo holds LlamaLend
+yield-basis,Yield Basis,yield-basis,Leveraged Farming,2025,immutable,yes,yield-basis,138389500,2026-09-21,,,draft,Vyper
+fx-protocol,fx Protocol,aladdin,Dual-Token Stablecoin,2023,upgradeable,yes,fx-protocol,132085690,2026-09-21,https://github.com/AladdinDAO/aladdin-v3-contracts/blob/main/audit-reports/SECBIT_f(x)_V2_Report_v1.4_20250107.pdf,,draft,
+bedrock-unibtc,Bedrock uniBTC,bedrock,Anchor BTC,2024,upgradeable,yes,bedrock-unibtc,109345502,2026-09-21,,,draft,
+homora-v2,Homora V2,alpha,Leveraged Farming,2021,upgradeable,yes,homora-v2,105826663,2026-09-21,https://blog.openzeppelin.com/alpha-homora-v2/,,draft,"Brownie-era repo, last commit 2021"
+stake-link,stake.link liquid,stake-link,Liquid Staking,2022,upgradeable,yes,stake.link-liquid,95185970,2026-09-21,,,draft,
+concentrator,Concentrator,aladdin,Yield,2022,upgradeable,yes,concentrator,87382231,2026-09-21,https://aladdin.club/audits/AladdinDao_V3_Report_Secbit.pdf,,draft,repo also holds CLever
+frankencoin,Frankencoin,frankencoin,CDP,2023,immutable,yes,frankencoin,87298021,2026-09-21,https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V1/ChainSecurity-audit.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V1/blockbite-audit.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V2/ChainSecurity_Frankencoin_Frankencoin_v2024.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/blob/main/audits/V2/frankencoin-audit-report-2024-1.1.pdf;https://github.com/Frankencoin-ZCHF/Frankencoin/tree/main/audits/V1;https://github.com/Frankencoin-ZCHF/Frankencoin/tree/main/audits/V2,,draft,no owner; new minters pass a veto-based governance
+vesper,Vesper,vesper,Yield Aggregator,2021,upgradeable,yes,vesper,83802987,2026-09-21,https://github.com/vesperfi/doc/tree/main/audit,,draft,"monorepo: pools, strategies, deployments"
+wise-token,Wise Token,wise,Yield,2020,immutable,no,wise-token,77566778,2026-09-21,,,draft,"contracts only, no tests in repo"
+solvbtc,SolvBTC LSTs,solv,Restaked BTC,2024,upgradeable,yes,solvbtc-lsts,74145903,2026-09-21,,,draft,
+treehouse,Treehouse Protocol,treehouse,DOR,2024,upgradeable,yes,treehouse-protocol,67981007,2026-09-21,https://github.com/treehouse-gaia/audit-report,,draft,flat contracts-only repo
+origin-ether,Origin Ether,origin,Liquid Staking,2023,upgradeable,yes,origin-ether,61187244,2026-09-21,,,draft,repo holds OETH and OUSD (Origin Dollar)
+origami,Origami Finance,origami,Leveraged Farming,2024,mixed,yes,origami-finance,58653629,2026-09-21,https://docs.origami.finance/technical-reference/audits,,draft,legacy apps/protocol-legacy-* excluded by subpath
+beefy,Beefy,beefy,Yield Aggregator,2020,upgradeable,yes,beefy,53317809,2026-09-21,https://github.com/beefyfinance/beefy-audits,,draft,
+resupply,Resupply,resupply,Lending,2025,immutable,yes,resupply,51854781,2026-09-21,https://docs.resupply.fi/faq/audits,,draft,
+infinifi,infiniFi,infinifi,Yield,2025,immutable,yes,infinifi,49110205,2026-09-21,https://docsend.com/view/vxet6fdzgb6zhfnn;https://docsend.com/view/qtz5tmdi35d7f5si;https://docsend.com/view/8nw9dtr9qhssndzw,,draft,
+autofinance,AUTOfinance,tokemak,Yield,2024,immutable,yes,autofinance,37946881,2026-09-21,https://docs.tokemak.xyz/developer-docs/security-and-audits,,draft,Tokemak v2 Autopools
+strata,Strata Markets,strata,Yield,2025,upgradeable,yes,strata-markets,37509026,2026-09-21,https://docs.strata.markets/technical-documentation/audits,,draft,
+frax,Frax,frax,Algo-Stables,2020,mixed,yes,frax,35561127,2026-09-21,https://www.certik.org/projects/fraxfinance,,draft,FRAX stablecoin and AMOs
+ipor-fusion,Fusion by IPOR,ipor,Yield Aggregator,2024,mixed,yes,fusion-by-ipor,33999335,2026-09-21,https://docs.ipor.io/audits,,draft,
+swell,Swell Liquid Staking,swell,Liquid Staking,2023,upgradeable,yes,swell-liquid-staking,33790797,2026-09-21,https://docs.swellnetwork.io/swell/risks/smart-contract-audits,,draft,contracts-only repo; also holds rswETH
+aegis-yusd,Aegis YUSD,aegis,Basis Trading,2025,upgradeable,yes,aegis-yusd,33241924,2026-09-21,,,draft,
+inverse-firm,Inverse Finance FiRM,inverse,CDP,2023,immutable,yes,inverse-finance-firm,30494477,2026-09-21,https://www.inverse.finance/audits,,draft,
+meta-pool-eth,Meta Pool ETH,meta-pool,Liquid Staking,2023,upgradeable,yes,meta-pool-eth,28765311,2026-09-21,,,draft,
+termmax,TermMax,term-structure,Lending,2025,upgradeable,yes,termmax,27299620,2026-09-21,https://github.com/term-structure/audits,,draft,
+mellow-lrt,Mellow Restaking,mellow,Liquid Restaking,2024,upgradeable,yes,mellow-restaking,26408634,2026-09-21,,,draft,
+fraxlend,Fraxlend,frax,Lending,2022,immutable,yes,fraxlend,23782585,2026-09-21,,,draft,
+stakestone,StakeStone STONE,stakestone,Liquid Staking,2023,immutable,yes,stakestone-stone,22104205,2026-09-21,https://github.com/Secure3Audit/Secure3Academy/blob/main/audit_reports/StakeStone/StakeStone_final_Secure3_Audit_Report.pdf,,draft,last commit 2024-07
+origin-arm,Origin ARM,origin,Yield,2024,upgradeable,yes,origin-arm,15119891,2026-09-21,https://docs.originprotocol.com/security-and-risk/audits,,draft,
+juicebox-v1,Juicebox V1,juicebox,Launchpad,2021,immutable,yes,juicebox-v1,14090813,2026-09-21,https://hacken.io/wp-content/uploads/2022/01/%D0%A1onstitution-DAO_11012022Audit_Report.pdf,,draft,
+native-credit-pool,Native Credit Pool,native,Lending,2025,immutable,yes,native-credit-pool,11931464,2026-09-21,,,draft,
+yieldfi,YieldFi,yieldfi,Yield Aggregator,2024,upgradeable,yes,yieldfi,11189819,2026-09-21,https://docs.yield.fi/resources/audits,,draft,
+superform,Superform,superform,Yield Aggregator,2024,immutable,yes,superform,11060142,2026-09-21,https://github.com/superform-xyz/superform-core/tree/main/security-review;https://github.com/superform-xyz/v2-core/tree/dev/audits;https://github.com/superform-xyz/v2-periphery/tree/dev/audits,,draft,Superform v1 core
+anvil,Anvil,anvil,Collateral Management,2024,upgradeable,yes,anvil,10957984,2026-09-21,https://blog.openzeppelin.com/anvil-audit;https://blog.openzeppelin.com/anvil-protocol-audit;https://github.com/trailofbits/publications/blob/master/reviews/2023-12-acronym-foundation-securityreview.pdf,,draft,
+bancor-v2-1,Bancor V2.1,bancor,Dexs,2020,upgradeable,yes,bancor-v2.1,10421518,2026-09-21,https://bancor-network.gitbook.io/v2.1/ethereum-contracts/security,,draft,contracts swapped through ContractRegistry
+aura,Aura,aura,Yield,2022,immutable,yes,aura,10269015,2026-09-21,https://github.com/aurafinance/aura-contracts/tree/main/audits,,draft,Convex-derived design; not flagged as a fork by DefiLlama
+metronome-synth,Metronome Synth,metronome,Synthetics,2023,upgradeable,yes,metronome-synth,8895675,2026-09-21,,,draft,
+aave-v1,Aave V1,aave,Lending,2020,upgradeable,yes,aave-v1,8256848,2026-09-21,https://aave.com/security,,draft,archived; last commit 2021
+brickken,Brickken,brickken,RWA,2023,upgradeable,yes,brickken,8211285,2026-09-21,https://skynet.certik.com/projects/brickken,,draft,contracts-only public mirror
+inceptionlrt,InceptionLRT (Isolated Restaking),inception,Liquid Restaking,2024,upgradeable,yes,inceptionlrt-(isolated-restaking),7574233,2026-09-21,,,draft,
+contango-v2,Contango V2,contango,Derivatives,2023,upgradeable,yes,contango-v2,6863966,2026-09-21,https://github.com/contango-xyz/core-v2/tree/main/audit,,draft,
+swaap-v2,Swaap Maker V2,swaap,Dexs,2023,immutable,yes,swaap-maker-v2,6794252,2026-09-21,https://chainsecurity.com/security-audit/swaap-finance-safeguardpool/;https://runtimeverification.com/blog/runtime-verification-audits-swaap-s-pool-smart-contracts;https://github.com/swaap-labs/swaap-v2-monorepo/blob/main/audits/quantstamp/quantstamp_SafeguardPool_audit.pdf,,draft,
+yo-protocol,YO Protocol,yo,Yield Aggregator,2025,upgradeable,yes,yo-protocol,6765383,2026-09-21,https://docs.yo.xyz/protocol/security-audits,,draft,yoprotocol/core-v2 also exists
+balancer-v1,Balancer V1,balancer,Dexs,2020,immutable,yes,balancer-v1,5941768,2026-09-21,https://docs.balancer.fi/reference/contracts/security.html#audits,,draft,archived
+dinero-pxeth,Dinero (pxETH),redacted,Liquid Staking,2023,immutable,yes,dinero-(pxeth),5876406,2026-09-21,https://github.com/dinero-protocol/audits/tree/master/dinero-pirex-eth/pirex-eth,,draft,
+pickle,Pickle,pickle,Yield Aggregator,2020,mixed,yes,pickle,4967602,2026-09-21,https://docs.pickle.finance/security/audits-and-timelock/smart-contract-audits,,draft,jars fixed; strategies swapped by the controller

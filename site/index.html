@@ -27,6 +27,13 @@
     <h1>Which DevOps practices do DeFi protocols actually use?</h1>
     <p class="lede">A practice-by-practice reading of the public repositories of influential, original Ethereum DeFi protocols. Every cell links to the file that produced it, pinned to a commit.</p>
     <div class="banner" id="banner" hidden></div>
+    <div class="controls sample">
+      <span>Count</span>
+      <div class="seg" id="sample-seg" role="group" aria-label="Which subjects every chart counts">
+        <button type="button" data-sample="headline" aria-pressed="true">one per family</button>
+        <button type="button" data-sample="all" aria-pressed="false">every version</button>
+      </div>
+    </div>
     <div class="kpis" id="kpis"></div>
   </header>
 
@@ -41,7 +48,7 @@
       </div>
     </div>
     <div class="rows" id="ranking-rows"></div>
-    <p class="note">Yes/no practices are unaffected by the threshold. n = protocols where the practice applies.</p>
+    <p class="note">Yes/no practices are unaffected by the threshold. n = protocols where the practice applies. The thin line over each bar is the 95% interval.</p>
     <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="ranking-tbl"></div></details>
   </section>
 
@@ -90,6 +97,8 @@
       <input type="search" id="heat-q" placeholder="protocol name" autocomplete="off">
       <label for="heat-up">Show</label>
       <select id="heat-up"></select>
+      <label for="heat-repo" id="heat-repo-l" hidden>Repo</label>
+      <select id="heat-repo" hidden></select>
       <label for="heat-sort">Sort by</label>
       <select id="heat-sort"></select>
       <button class="plain" type="button" id="heat-reset">Reset</button>
@@ -97,6 +106,7 @@
     </div>
     <div class="heat" id="heat"></div>
     <div class="scale" id="heat-scale"></div>
+    <div class="scale rclegend" id="heat-rc"></div>
     <div id="detail" aria-live="polite"></div>
   </section>
 

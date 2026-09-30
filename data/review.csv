@@ -1,0 +1,197 @@
+# Hand review of every keep/review candidate down to the last included one (Ethereum-TVL order).
+# include -> data/protocols.csv; exclude -> the reason. tools/check_sample.py keeps this complete.
+raw_rank,slug,name,decision,protocol_id,reason
+2,lido,Lido,include,lido-core,
+3,aave-v3,Aave V3,include,aave-v3,
+5,ssv-network,SSV Network,include,ssv-network,
+6,binance-staked-eth,Binance staked ETH,exclude,,exchange-issued custodial token; no public contracts repo
+7,eigencloud,EigenCloud,include,eigenlayer,
+11,sky-lending,Sky Lending,include,sky-lending,
+13,ether.fi-stake,ether.fi Stake,include,ether-fi,
+14,morpho-blue,Morpho Blue,include,morpho-blue,
+15,ethena-usde,Ethena USDe,exclude,,"only archived audit-contest snapshots are public (ethena-labs/code4arena-contest), not a maintained repo"
+22,maple,Maple,include,maple-v2,
+28,rocket-pool,Rocket Pool,include,rocket-pool,
+29,compound-v3,Compound V3,include,compound-comet,
+33,curve-dex,Curve DEX,include,curve,
+35,falcon-finance,Falcon Finance,exclude,,no public contracts repo found
+37,kelp,Kelp,include,kelp,
+38,stakewise-v3,StakeWise V3,include,stakewise-v3,
+39,spark-savings,Spark Savings,include,spark-savings,
+41,uniswap-v3,Uniswap V3,include,uniswap-v3,
+43,liquid-collective,Liquid Collective,include,liquid-collective,
+46,uniswap-v2,Uniswap V2,include,uniswap-v2,
+47,uniswap-v4,Uniswap V4,include,uniswap-v4,
+49,pendle-v2,Pendle V2,include,pendle-v2,
+55,obol,Obol,include,obol,
+56,meth-protocol,mETH Protocol,include,meth,
+57,ondo-global-markets,Ondo Global Markets,exclude,,no public Ethereum contracts repo for Global Markets (ondoprotocol holds Solana and a token list)
+58,convex-finance,Convex Finance,include,convex,
+60,invesco-ustb,Invesco USTB,include,superstate-ustb,
+61,fluid-lending,Fluid Lending,include,fluid,
+62,coinbase-wrapped-staked-eth,Coinbase Wrapped Staked ETH,exclude,,exchange-issued custodial token
+63,symbiotic,Symbiotic,include,symbiotic,
+64,ethena-usdtb,Ethena USDtb,exclude,,sibling of Ethena USDe; only an archived contest repo is public
+66,aave-v4,Aave V4,include,aave-v4,
+70,re,Re,exclude,,no public contracts repo found
+71,cap,cap,include,cap,
+72,defi-saver-asset-management,Defi Saver Asset Management,include,defi-saver,
+73,anemoy-capital,Anemoy Capital,exclude,,fund issued on Centrifuge infrastructure; no codebase of its own
+75,dolomite,Dolomite,include,dolomite,
+81,aave-horizon-rwa,Aave Horizon RWA,exclude,,same codebase as aave-v3 (an aave-v3-origin deployment)
+82,fluid-lite,Fluid Lite,exclude,,no separate public repo found in the Instadapp org
+84,stader,Stader,include,stader-ethx,
+85,cooler-loans,Cooler Loans,include,olympus-cooler,
+86,fluid-dex,Fluid DEX,exclude,,same codebase as fluid (fluid-contracts-public)
+87,cian-yield-layer,CIAN Yield Layer,exclude,,no public repo for the Yield Layer (cian-ai repos stop in 2023)
+89,liquity-v1,Liquity V1,include,liquity-v1,
+90,m0,M0,include,m0,
+92,digift,DigiFT,exclude,,no public contracts repo found
+93,yearn-finance,Yearn Finance,include,yearn-v3,
+97,crvusd,crvUSD,include,crvusd,
+98,huma-finance-v2,Huma Finance V2,include,huma-v2,
+100,stake-dao-yield,Stake DAO Yield,exclude,,no public repo for the vault/strategy contracts found in the stake-dao org
+102,saturn,Saturn,exclude,,no public contracts repo found
+106,frax-ether,Frax Ether,include,frax-eth,
+108,yield-basis,Yield Basis,include,yield-basis,
+111,theo-network-thusd,Theo Network thUSD,exclude,,no public contracts repo (only OFT adapters)
+112,fx-protocol,fx Protocol,include,fx-protocol,
+116,nexus-mutual,Nexus Mutual,include,nexus-mutual,
+118,compound-v2,Compound V2,include,compound-v2,
+120,bedrock-unibtc,Bedrock uniBTC,include,bedrock-unibtc,
+121,avalon-cedefi,Avalon CeDeFi,exclude,,CeDeFi: custodial product
+123,uncx-network-v2,UNCX Network V2,exclude,,"token-locker utility, not a financial protocol"
+124,liquity-v2,Liquity V2,include,liquity-v2,
+125,homora-v2,Homora V2,include,homora-v2,
+126,frax-usd,Frax USD,exclude,,no separate public repo for frxUSD found
+128,stake.link-liquid,stake.link liquid,include,stake-link,
+129,enzyme-finance,Enzyme Finance,include,enzyme,
+130,renzo,Renzo,include,renzo,
+131,usual-usd0,Usual USD0,exclude,,no public contracts repo found
+132,concentrator,Concentrator,include,concentrator,
+133,frankencoin,Frankencoin,include,frankencoin,
+134,swell-l2-farm,Swell L2 Farm,exclude,,pre-deposit points farm
+137,aave-v2,Aave V2,include,aave-v2,
+138,vesper,Vesper,include,vesper,
+139,avalon-superearn,Avalon Superearn,exclude,,CeDeFi sibling of Avalon
+141,bitwise-uscc,Bitwise USCC,exclude,,sibling of Invesco USTB on the same Superstate codebase
+143,wise-token,Wise Token,include,wise-token,
+144,curve-llamalend,Curve LlamaLend,exclude,,same codebase as crvusd (curve-stablecoin)
+146,bitfi-basis,BitFi Basis,exclude,,CeDeFi: custodial basis trade
+148,solvbtc-lsts,SolvBTC LSTs,include,solvbtc,
+151,sky-rwa,Sky RWA,exclude,,"Maker RWA vault modules: a governance extension of sky-lending, not a separate protocol"
+153,usdcx,USDCx,exclude,,custodial stablecoin wrapper (Circle)
+154,treehouse-protocol,Treehouse Protocol,include,treehouse,
+155,tori-finance,Tori Finance,exclude,,no public contracts repo found
+160,origin-ether,Origin Ether,include,origin-ether,
+164,origami-finance,Origami Finance,include,origami,
+165,zircuit-staking,Zircuit Staking,exclude,,pre-deposit points farm
+166,euler-v2,Euler V2,include,euler-v2,
+169,axis,Axis,exclude,,no public contracts repo found
+170,beefy,Beefy,include,beefy,
+172,resupply,Resupply,include,resupply,
+173,plume-vaults,Plume Vaults,exclude,,mapping uncertain: vault product not clearly matched to one public repo
+174,infinifi,infiniFi,include,infinifi,
+180,mantle-restaking,Mantle Restaking,exclude,,same codebase as meth (mantle-lsp/contracts)
+181,opentrade,OpenTrade,exclude,,no public contracts repo found
+183,idex-v1,IDEX V1,exclude,,no public repo (idexio org has none)
+192,nodedao,NodeDAO,include,nodedao,
+193,dydx-v3,dYdX V3,exclude,,"Ethereum side is StarkWare's StarkEx contracts, not a dYdX codebase (dydxprotocol/perpetual is the older L1 perpetual)"
+194,alchemix-v3,Alchemix V3,include,alchemix-v3,
+195,autofinance,AUTOfinance,include,autofinance,
+197,noon,Noon,exclude,,no public contracts repo found
+198,strata-markets,Strata Markets,include,strata,
+200,frax,Frax,include,frax,
+201,reserve-protocol,Reserve Protocol,include,reserve,
+202,3f,3F,exclude,,mapping uncertain: no repo clearly holds the deployed 3F contracts
+203,derive-v2,Derive V2,include,derive-v2,
+205,fusion-by-ipor,Fusion by IPOR,include,ipor-fusion,
+206,swell-liquid-staking,Swell Liquid Staking,include,swell,
+207,team-finance,Team Finance,exclude,,"token-locker utility, not a financial protocol"
+209,curve-llamalend-v2,Curve LlamaLend V2,exclude,,same codebase as crvusd (curve-stablecoin)
+210,aegis-yusd,Aegis YUSD,include,aegis-yusd,
+214,swell-liquid-restaking,Swell Liquid Restaking,exclude,,same codebase as swell (v3-core-public holds rswETH)
+215,puffer-stake,Puffer Stake,include,puffer,
+220,inverse-finance-firm,Inverse Finance FiRM,include,inverse-firm,
+221,arrakis-modular,Arrakis Modular,exclude,,no public repo for Arrakis Modular found (the org's public repos are archived v1/v2)
+224,meta-pool-eth,Meta Pool ETH,include,meta-pool-eth,
+225,rocksolid-network,RockSolid Network,exclude,,no public contracts repo found
+227,piku-finance,Piku Finance,exclude,,no public contracts repo found
+228,bedrock-unieth,Bedrock uniETH,exclude,,no public repo for uniETH found (Bedrock org holds uniBTC only)
+230,termmax,TermMax,include,termmax,
+232,mellow-restaking,Mellow Restaking,include,mellow-lrt,
+236,usdd,USDD,exclude,,Tron-native; no public Ethereum contracts repo
+240,fraxlend,Fraxlend,include,fraxlend,
+241,morpheusai,MorpheusAI,exclude,,"AI-agent project, not a DeFi protocol"
+242,balancer-v2,Balancer V2,include,balancer-v2,
+243,ankr,Ankr,exclude,,no public liquid-staking contracts repo found in Ankr-network
+247,gearbox,Gearbox,include,gearbox-v3,
+249,stakestone-stone,StakeStone STONE,include,stakestone,
+251,sosovalue-indexes,SoSoValue Indexes,exclude,,no public contracts repo found (only third-party bots)
+255,geth,GETH,exclude,,custodial staking product (Guarda)
+258,apex-omni,Apex Omni,exclude,,off-chain order book; no public contracts repo
+259,katana-pre-launch,Katana Pre-Launch,exclude,,pre-deposit points farm
+260,gaib,GAIB,exclude,,no public contracts repo found
+267,bancor-v3,Bancor V3,include,bancor-v3,
+272,index-coop,Index Coop,exclude,,products run on Set Protocol v2 contracts (already sampled)
+275,origin-arm,Origin ARM,include,origin-arm,
+276,balancer-v3,Balancer V3,include,balancer-v3,
+278,set-protocol,Set Protocol,include,set-protocol-v2,
+279,zerobase-cedefi,ZEROBASE CeDeFi,exclude,,CeDeFi: custodial product
+282,lista-lending,Lista Lending,exclude,,fork of Morpho Blue (lista-dao/moolah)
+283,juicebox-v1,Juicebox V1,include,juicebox-v1,
+284,badger-dao,Badger DAO,exclude,,no core vault repo found (badger-vaults-1.5 is a fork)
+286,pinksale,PinkSale,exclude,,launchpad with no public contracts repo
+290,aevo-perps,Aevo Perps,exclude,,off-chain order book on its own L2
+291,3jane-lending,3Jane Lending,exclude,,fork of Morpho Blue (moneymarket-contracts README is Morpho Blue's)
+292,native-credit-pool,Native Credit Pool,include,native-credit-pool,
+293,veno-finance,Veno Finance,exclude,,Cronos-native
+294,uncx-network-v3,UNCX Network V3,exclude,,"token-locker utility, not a financial protocol"
+297,templar-protocol,Templar Protocol,exclude,,NEAR/Rust-native contracts
+299,flying-tulip-lend,Flying Tulip Lend,exclude,,no public contracts repo found
+300,yieldfi,YieldFi,include,yieldfi,
+301,superform,Superform,include,superform,
+302,anvil,Anvil,include,anvil,
+303,theo-network-thbill,Theo Network thBill,exclude,,sibling of Theo thUSD; no public contracts repo
+306,royco-v2,Royco V2,exclude,,"mapping uncertain between royco-iam, royco-dawn and royco-day"
+309,bancor-v2.1,Bancor V2.1,include,bancor-v2-1,
+310,sierra-protocol,Sierra Protocol,exclude,,no public contracts repo found
+313,rysk-v12,Rysk V12,exclude,,no public contracts repo (only CLI and SDKs)
+314,aura,Aura,include,aura,
+316,thorchain-dex,THORChain DEX,exclude,,THORChain-native; Ethereum holds only a router
+317,fira,Fira,exclude,,no public contracts repo found
+319,narausd,NaraUSD,exclude,,no public contracts repo found
+321,syntropia,Syntropia,exclude,,no public contracts repo found
+323,metronome-synth,Metronome Synth,include,metronome-synth,
+326,blur-lending,Blur Lending,exclude,,no public contracts repo found
+329,aave-v1,Aave V1,include,aave-v1,
+330,brickken,Brickken,include,brickken,
+335,aurus,Aurus,exclude,,no public contracts repo found
+336,inceptionlrt-(isolated-restaking),InceptionLRT (Isolated Restaking),include,inceptionlrt,
+337,the-idols,The Idols,exclude,,no public contracts repo found
+340,cvault-finance,cVault Finance,exclude,,no public contracts repo found
+341,vault-street,Vault Street,exclude,,sibling of Resolv; no public contracts repo
+343,nuva,NUVA,exclude,,no public contracts repo found
+344,contango-v2,Contango V2,include,contango-v2,
+345,mento-v2,Mento V2,exclude,,Celo-native protocol; Ethereum is a secondary deployment
+346,swaap-maker-v2,Swaap Maker V2,include,swaap-v2,
+347,yo-protocol,YO Protocol,include,yo-protocol,
+350,reservoir-protocol,Reservoir Protocol,exclude,,mapping uncertain: reservoir-labs is a different project (an AMM)
+351,yuzu-money,Yuzu Money,exclude,,no public contracts repo found
+353,clever,CLever,exclude,,same codebase as concentrator (aladdin-v3-contracts)
+357,resolv-usr,Resolv USR,exclude,,no public contracts repo found
+360,hakka-finance,Hakka Finance,exclude,,mapping uncertain: public repos are 2020 products (blackholeswap)
+361,chain-fusion,Chain Fusion,exclude,,Internet Computer-native
+362,balancer-v1,Balancer V1,include,balancer-v1,
+363,dinero-(pxeth),Dinero (pxETH),include,dinero-pxeth,
+367,fermiswap,FermiSwap,exclude,,no website or repo listed
+368,opengdp-shared-security,OpenGDP Shared Security,exclude,,no public contracts repo found
+369,powh3d,PoWH3D,exclude,,"2018 pyramid game, not a DeFi protocol"
+370,origin-dollar,Origin Dollar,exclude,,same codebase as origin-ether (origin-dollar repo)
+371,lista-dex,Lista DEX,exclude,,BNB-native sibling of Lista
+372,eva-markets,eva Markets,exclude,,no public contracts repo found
+373,easedefi.org,Easedefi.org,exclude,,mapping uncertain between arNXM and ease-rca
+375,bouncebit-prime,BounceBit Prime,exclude,,CeDeFi: custodial product
+378,stafi,Stafi,exclude,,Substrate-native; no public Ethereum LST contracts repo found
+380,pickle,Pickle,include,pickle,
+487,silo-v2,Silo V2,exclude,,below the TVL walk's cutoff (rank 487); was a hand addition to the 46-protocol pilot

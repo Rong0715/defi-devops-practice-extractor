@@ -15,7 +15,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 URL = "https://api.llama.fi/protocols"
 KEEP = ("name", "slug", "category", "parentProtocol", "forkedFromIds", "forkedFrom", "github",
-        "audit_links", "deprecated", "listedAt", "url", "openSource", "governanceID", "symbol")
+        "audit_links", "deprecated", "listedAt", "url", "openSource", "governanceID", "symbol",
+        "module")   # the TVL adapter path in DefiLlama-Adapters, used by tools/verify_mapping.py
 
 
 def main():

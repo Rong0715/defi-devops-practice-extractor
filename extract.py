@@ -10,7 +10,7 @@ protocol, and writes out/. Every cell carries the evidence that produced it.
     python3 extract.py aave-v3 morpho-blue
     python3 extract.py --resume           # skip protocols already in out/
     python3 extract.py --no-clone         # only use what is already in repos/
-    python3 extract.py --jobs 8           # parallel clones (network-bound)
+    python3 extract.py --jobs 8           # parallel clones and scans
 
 Each protocol's JSON is written as soon as it is done, so a long run that dies
 part-way keeps its work; --resume picks it up. The combined tables (all.json,
@@ -26,7 +26,7 @@ import re
 import subprocess
 import sys
 from collections import OrderedDict
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from pathlib import Path
 
 from aggregate import run_protocol
@@ -78,13 +78,44 @@ def clone(url, dest, retries=1):
     return False, "unreachable"
 
 
+def scan(pid, proto, rows, now):
+    """Index, probe and write one protocol. Runs in a worker process.
+    Returns (pid, log lines, record or None, skip reason or None)."""
+    proto["gap_tags"] = {t.strip() for t in proto.get("scope_gaps", "").split(";") if t.strip()}
+    log, repos, metas = [], [], []
+    for row in rows:
+        dest = clone_dir(row)
+        ok = (dest / ".git").exists()
+        meta = {"id": row["repo_id"], "url": row["url"], "role": row["role"],
+                "subpath": row.get("subpath", ""), "clone": "ok" if ok else "fail"}
+        if ok:
+            meta.update(commit=git(dest, "rev-parse", "HEAD"),
+                        branch=git(dest, "rev-parse", "--abbrev-ref", "HEAD"),
+                        commit_date=git(dest, "log", "-1", "--format=%cI"))
+            repo = Repo(row["repo_id"], row["url"], dest, row["role"], row.get("subpath", ""))
+            meta["file_count"] = len(repo.scoped)
+            meta["first_party_submodules"] = repo.first_party_submodules
+            repos.append(repo)
+            log.append(f"  [scan]  {row['repo_id']} ({row['role']}, {len(repo.scoped)} files)\n")
+        metas.append(meta)
+    reason = ("no repos listed in data/repos.csv" if not rows else
+              "core repo unavailable (clone failed?)" if not any(r.role == "core" for r in repos) else None)
+    if reason:
+        log.append(f"  !! skipped: {reason}\n")
+        return pid, log, None, {"protocol": pid, "reason": reason}
+    rec = build_record(proto, metas, run_protocol(proto, repos), now)
+    write_record(rec, OUT_DIR)
+    return pid, log, rec, None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("protocols", nargs="*")
     ap.add_argument("--no-clone", action="store_true")
     ap.add_argument("--resume", action="store_true",
                     help="skip protocols that already have out/<id>.json")
-    ap.add_argument("--jobs", type=int, default=6, help="parallel clones (default 6)")
+    ap.add_argument("--jobs", type=int, default=6,
+                    help="parallel clones, and parallel protocol scans (default 6)")
     args = ap.parse_args()
 
     protocols = OrderedDict((p["protocol_id"], p) for p in load_csv(DATA_DIR / "protocols.csv"))
@@ -134,36 +165,16 @@ def main():
             records.append(json.loads((OUT_DIR / f"{pid}.json").read_text()))
         except Exception as e:
             print(f"  !! could not reload {pid}: {e}")
-    for pid in todo:
-        proto = dict(protocols[pid])
-        proto["gap_tags"] = {t.strip() for t in proto.get("scope_gaps", "").split(";") if t.strip()}
-        print(f"[{pid}]")
-        repos, metas = [], []
-        for row in repo_rows.get(pid, []):
-            dest = clone_dir(row)
-            ok = (dest / ".git").exists()
-            meta = {"id": row["repo_id"], "url": row["url"], "role": row["role"],
-                    "subpath": row.get("subpath", ""), "clone": "ok" if ok else "fail"}
-            if ok:
-                meta.update(commit=git(dest, "rev-parse", "HEAD"),
-                            branch=git(dest, "rev-parse", "--abbrev-ref", "HEAD"),
-                            commit_date=git(dest, "log", "-1", "--format=%cI"))
-                repo = Repo(row["repo_id"], row["url"], dest, row["role"], row.get("subpath", ""))
-                meta["file_count"] = len(repo.scoped)
-                meta["first_party_submodules"] = repo.first_party_submodules
-                repos.append(repo)
-                print(f"  [scan]  {row['repo_id']} ({row['role']}, {len(repo.scoped)} files)")
-            metas.append(meta)
-        if not repo_rows.get(pid):
-            skipped.append({"protocol": pid, "reason": "no repos listed in data/repos.csv"})
-        elif not any(r.role == "core" for r in repos):
-            skipped.append({"protocol": pid, "reason": "core repo unavailable (clone failed?)"})
-        if skipped and skipped[-1]["protocol"] == pid:
-            print(f"  !! skipped: {skipped[-1]['reason']}")
-            continue
-        rec = build_record(proto, metas, run_protocol(proto, repos), now)
-        write_record(rec, OUT_DIR)
-        records.append(rec)
+    # Protocols are independent and probing is CPU-bound regex work, so they run in
+    # separate processes; output is printed in sample order as each one finishes.
+    jobs = [(pid, dict(protocols[pid]), repo_rows.get(pid, []), now) for pid in todo]
+    with ProcessPoolExecutor(max_workers=max(1, args.jobs)) as ex:
+        for pid, log, rec, skip in ex.map(scan, *zip(*jobs)) if jobs else []:
+            print(f"[{pid}]\n" + "".join(log), end="")
+            if skip:
+                skipped.append(skip)
+            else:
+                records.append(rec)
 
     # phase 3: combined tables + run report
     order = {p: i for i, p in enumerate(wanted)}

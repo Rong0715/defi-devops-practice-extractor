@@ -1,7 +1,14 @@
 (function () {
   "use strict";
   const D = window.DATA;
-  const P = D.protocols;
+  const ALL = D.protocols;
+  // Headline statistics count one subject per protocol family (the latest version), so a
+  // team with three versions in the sample is not counted three times. The toggle in the
+  // header switches every chart to all versions as a robustness check.
+  const HAS_HEAD = ALL.some(p => p.headline);
+  let sample = HAS_HEAD ? "headline" : "all";
+  let P = ALL;
+  const applySample = () => { P = sample === "headline" ? ALL.filter(p => p.headline) : ALL; };
   const RANK = { absent: 0, mentioned: 1, configured: 2, runs_in_ci: 3 };
   const LV = ["absent", "mentioned", "configured", "runs_in_ci"];
   const LV_LABEL = { absent: "Not found", mentioned: "Mentioned", configured: "Configured", runs_in_ci: "Run in CI" };
@@ -31,10 +38,18 @@
     if (v.type === "bool") return c.v === true;
     return null;
   }
+  // Wilson score interval (95%): honest error bars for a share of a few dozen protocols
+  function wilson(k, n) {
+    if (!n) return [null, null];
+    const z = 1.96, p = k / n, d = 1 + z * z / n;
+    const c = (p + z * z / (2 * n)) / d, h = z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d;
+    return [Math.max(0, c - h), Math.min(1, c + h)];
+  }
   function share(ps, v, mode) {
     let n = 0, k = 0;
     ps.forEach(p => { const a = adopted(p, v, mode); if (a !== null) { n++; if (a) k++; } });
-    return { n, k, share: n ? k / n : null };
+    const [lo, hi] = wilson(k, n);
+    return { n, k, share: n ? k / n : null, lo, hi };
   }
   function levelCounts(ps, v) {
     const c = { absent: 0, mentioned: 0, configured: 0, runs_in_ci: 0, n: 0 };
@@ -47,6 +62,7 @@
     return n ? { share: k / n, n, k } : null;
   }
   const dimVars = d => D.variables.filter(v => v.dim === d && countable(v) && !ROLLUP.has(v.id));
+  const allVars = D.variables.filter(v => countable(v) && !ROLLUP.has(v.id));
 
   // ---- small builders ---------------------------------------------------
   function table(cols, rows) {
@@ -75,7 +91,7 @@
 
   // ---- header -----------------------------------------------------------
   function header() {
-    const n = P.length;
+    const n = P.length, fams = new Set(ALL.map(p => p.parent || p.id)).size;
     // The caveat depends on whether accuracy was measured, never on how many
     // protocols there are: a bigger sample is not a validated one.
     const drafts = P.filter(p => p.label_status === "draft").length;
@@ -84,18 +100,23 @@
     if (drafts) notes.push(`the upgradeable/immutable and launch-year labels are unreviewed drafts${drafts < n ? ` for ${drafts} of ${n} protocols` : ""}`);
     if (notes.length) {
       const b = $("#banner"); b.hidden = false;
-      b.innerHTML = `<strong>Provisional results.</strong> Treat every number as unvalidated: ${notes.join(", and ")}. See Methods for how the ${n} protocols were sampled.`;
+      b.innerHTML = `<strong>Provisional results.</strong> Treat every number as unvalidated: ${notes.join(", and ")}. See Methods for how the ${ALL.length} protocols were sampled.`;
     }
     const an = share(P, VAR["D3_static.any_analyzer"], "ci");
     const au = share(P, VAR["D9_assurance.audited_publicly"], "any");
     const kpis = [
-      [n, "protocols scanned"],
+      [n, sample === "headline" ? `protocol families counted (${ALL.length} versions scanned)` : `protocol versions counted (${fams} families)`],
       [D.variables.filter(v => !v.derived).length, "practices measured"],
       [pct(an.share), `run a static analyzer in CI (n=${an.n})`],
       [pct(au.share), `have a public audit report (n=${au.n})`],
     ];
     $("#kpis").innerHTML = kpis.map(([a, b]) => `<div class="kpi"><div class="n">${esc(a)}</div><div class="t">${esc(b)}</div></div>`).join("");
-    $("#foot").textContent = `Snapshot ${D.snapshot_date}. Generated from public repositories only; see Methods for what that does and does not show.`;
+    $("#sample-seg").hidden = !HAS_HEAD;
+    document.querySelectorAll("#sample-seg button").forEach(b => {
+      b.setAttribute("aria-pressed", b.dataset.sample === sample);
+      b.textContent = b.dataset.sample === "headline" ? `one per family (n=${ALL.filter(p => p.headline).length})` : `every version (n=${ALL.length})`;
+    });
+    $("#foot").textContent = `Sample and TVL from the DefiLlama snapshot of ${D.snapshot_date}; repositories scanned ${String(D.generated_at || "").slice(0, 10)}. Generated from public repositories only; see Methods for what that does and does not show.`;
   }
 
   // ---- 1. ranking -------------------------------------------------------
@@ -106,11 +127,11 @@
     $("#ranking-rows").innerHTML = rows.map(r => `
       <div class="row">
         <div class="lab">${named(r.v)}<small>${esc(DIM_LABEL[r.v.dim])}${r.v.type === "adoption" ? "" : " · yes/no"}</small></div>
-        <div class="bar single" ${tipAttr(`${r.v.label}: ${r.k} of ${r.n} protocols (${pct(r.share)})`)}><i style="width:${Math.max(r.share * 100, r.k ? 1.5 : 0)}%"></i></div>
+        <div class="bar single ci" ${tipAttr(`${r.v.label}: ${r.k} of ${r.n} protocols (${pct(r.share)}); 95% interval ${pct(r.lo)}–${pct(r.hi)}`)}><i style="width:${Math.max(r.share * 100, r.k ? 1.5 : 0)}%"></i><b style="left:${r.lo * 100}%;width:${(r.hi - r.lo) * 100}%"></b></div>
         <div class="val">${pct(r.share)} <small>${r.k}/${r.n}</small></div>
       </div>`).join("");
-    $("#ranking-tbl").innerHTML = table(["Practice", "Dimension", "Adopted", "Applicable (n)", "Share"],
-      rows.map(r => [r.v.label, DIM_LABEL[r.v.dim], r.k, r.n, pct(r.share)]));
+    $("#ranking-tbl").innerHTML = table(["Practice", "Dimension", "Adopted", "Applicable (n)", "Share", "95% interval"],
+      rows.map(r => [r.v.label, DIM_LABEL[r.v.dim], r.k, r.n, pct(r.share), `${pct(r.lo)}–${pct(r.hi)}`]));
   }
   document.querySelectorAll("#mode-seg button").forEach(b => b.addEventListener("click", () => {
     mode = b.dataset.mode;
@@ -211,16 +232,42 @@
   // ---- 6. heatmap explorer ---------------------------------------------
   const bucket = s => (s == null ? "na" : s === 0 ? "" : s <= .2 ? "h1" : s <= .4 ? "h2" : s <= .6 ? "h3" : s <= .8 ? "h4" : "h5");
   const heatCols = () => D.dims.filter(d => dimVars(d.id).length);
-  const hstate = { q: "", up: "", sort: P.some(p => p.tvl) ? "tvl" : "name", sel: null };
+  const hstate = { q: "", up: "", repo: "", sort: ALL.some(p => p.tvl) ? "tvl" : "name", sel: null };
+  // Is the scanned repo the protocol's real code? (tools/verify_mapping.py, or a person)
+  const RC = {
+    auto: ["✓", "Repo confirmed: it declares contracts the protocol has deployed on Ethereum"],
+    hand: ["✓", "Repo confirmed by hand"],
+    doubtful: ["!", "Repo flagged as doubtful by hand"],
+    unconfirmed: ["?", "Repo not yet tied to deployed contracts"],
+  };
+  const rcOk = p => p.repo_check && (p.repo_check.status === "auto" || p.repo_check.status === "hand");
+  function rcText(p) {
+    const c = p.repo_check; if (!c) return "";
+    const d = c.status === "auto" ? c.detail.split(";").slice(0, 3).join(", ") : c.detail;
+    return RC[c.status][1] + (d ? ` (${d})` : "");
+  }
+  const badge = p => p.repo_check
+    ? `<span class="rc ${p.repo_check.status}" data-tip="${esc(rcText(p))}" aria-hidden="true">${RC[p.repo_check.status][0]}</span><span class="sr">${esc(RC[p.repo_check.status][1])}</span>` : "";
+  const overall = p => { const s = poolShare(p, allVars); return s ? s.share : -1; };
 
   function heatRows() {
     const q = hstate.q.trim().toLowerCase();
     let ps = P.filter(p => (!q || p.name.toLowerCase().includes(q) || p.id.toLowerCase().includes(q))
-      && (!hstate.up || p.upgradeability === hstate.up));
+      && (!hstate.up || p.upgradeability === hstate.up)
+      && (!hstate.repo || (hstate.repo === "ok") === rcOk(p)));
     const byName = (a, b) => a.name.localeCompare(b.name);
     if (hstate.sort === "name") ps.sort(byName);
     else if (hstate.sort === "tvl") ps.sort((a, b) => (b.tvl || 0) - (a.tvl || 0) || byName(a, b));
     else if (hstate.sort === "year") ps.sort((a, b) => (a.launch_year || 9999) - (b.launch_year || 9999) || byName(a, b));
+    else if (hstate.sort === "overall") ps.sort((a, b) => overall(b) - overall(a) || byName(a, b));
+    else if (hstate.sort === "category") ps.sort((a, b) => (a.category || "~").localeCompare(b.category || "~") || overall(b) - overall(a) || byName(a, b));
+    else if (hstate.sort === "family") {
+      // families by their best TVL, versions inside a family newest first
+      const top = {}; ps.forEach(p => { const f = p.parent || p.id; top[f] = Math.max(top[f] || 0, p.tvl || 0); });
+      const fam = p => p.parent || p.id;
+      ps.sort((a, b) => top[fam(b)] - top[fam(a)] || fam(a).localeCompare(fam(b)) || (b.launch_year || 0) - (a.launch_year || 0) || byName(b, a));
+    }
+    else if (hstate.sort === "commit") ps.sort((a, b) => (b.commit_date || "").localeCompare(a.commit_date || "") || byName(a, b));
     else {
       const sc = p => { const s = poolShare(p, dimVars(hstate.sort)); return s ? s.share : -1; };
       ps.sort((a, b) => sc(b) - sc(a) || byName(a, b));
@@ -230,7 +277,7 @@
 
   function renderHeat() {
     const cols = heatCols(), ps = heatRows();
-    const sortLab = { tvl: "Ethereum TVL", name: "name", year: "launch year" }[hstate.sort] || DIM_LABEL[hstate.sort];
+    const sortLab = SORTS[hstate.sort] || DIM_LABEL[hstate.sort] + " score";
     const head = "<tr><th></th>" + cols.map(d => {
       const on = hstate.sort === d.id;
       return `<th ${on ? 'aria-sort="descending"' : ""} title="${esc(STAGE_LABEL[d.stage])}">` +
@@ -238,7 +285,8 @@
         `aria-label="Sort by ${esc(DIM_LABEL[d.id])}">${esc(d.id.split("_")[0])}` +
         `<span>${esc(DIM_LABEL[d.id])}${on ? " ▾" : ""}</span></button></th>`;
     }).join("") + "</tr>";
-    const body = ps.map(p => `<tr><th class="rowh" scope="row"><button type="button" data-p="${esc(p.id)}">${esc(p.name)}</button></th>` +
+    const sub = p => hstate.sort === "category" ? p.category : hstate.sort === "commit" ? p.commit_date : hstate.sort === "overall" ? pct(overall(p)) : hstate.sort === "year" || hstate.sort === "family" ? p.launch_year : "";
+    const body = ps.map(p => `<tr><th class="rowh" scope="row"><button type="button" data-p="${esc(p.id)}">${esc(p.name)}${badge(p)}${sub(p) ? `<small>${esc(sub(p))}</small>` : ""}</button></th>` +
       cols.map(d => {
         const s = poolShare(p, dimVars(d.id));
         const t = s ? `${p.name} · ${DIM_LABEL[d.id]}: ${s.k} of ${s.n} applicable practices found`
@@ -251,16 +299,22 @@
       ? `<table><thead>${head}</thead><tbody>${body}</tbody></table>`
       : `<p class="note">No protocol matches those filters.</p>`;
     $("#heat-count").textContent = `${ps.length} of ${P.length} protocols, by ${sortLab}`;
+    // legend counts follow the current sample (one per family / every version)
+    $("#heat-rc").innerHTML = ["auto", "hand", "unconfirmed", "doubtful"]
+      .map(k => [k, P.filter(p => p.repo_check && p.repo_check.status === k).length]).filter(([, n]) => n)
+      .map(([k, n]) => `<span><span class="rc ${k}" aria-hidden="true">${RC[k][0]}</span>${esc(RC[k][1].replace("Repo ", "repo "))} (${n})</span>`).join("");
   }
 
+  const SORTS = { tvl: "Ethereum TVL", overall: "overall score", name: "name", year: "launch year",
+    category: "category", family: "protocol family", commit: "most recent commit" };
   function heatmap() {
     $("#heat-up").innerHTML = `<option value="">all protocols</option>` +
-      ["immutable", "upgradeable", "mixed"].filter(u => P.some(p => p.upgradeability === u))
+      ["immutable", "upgradeable", "mixed"].filter(u => ALL.some(p => p.upgradeability === u))
         .map(u => `<option value="${u}">${u} only</option>`).join("");
+    const has = { tvl: ALL.some(p => p.tvl), year: ALL.some(p => p.launch_year), category: ALL.some(p => p.category),
+      commit: ALL.some(p => p.commit_date), family: ALL.some(p => p.parent) };
     $("#heat-sort").innerHTML =
-      (P.some(p => p.tvl) ? `<option value="tvl">Ethereum TVL</option>` : "") +
-      `<option value="name">name</option>` +
-      (P.some(p => p.launch_year) ? `<option value="year">launch year</option>` : "") +
+      Object.entries(SORTS).filter(([k]) => has[k] !== false).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join("") +
       heatCols().map(d => `<option value="${d.id}">${esc(DIM_LABEL[d.id])} score</option>`).join("");
     $("#heat-sort").value = hstate.sort;
     $("#heat-scale").innerHTML = `<span>share of applicable practices found:</span>` +
@@ -273,10 +327,15 @@
       clearTimeout(t); t = setTimeout(() => { hstate.q = e.target.value; renderHeat(); }, 120);
     });
     $("#heat-up").addEventListener("change", e => { hstate.up = e.target.value; renderHeat(); });
+    const hasRC = ALL.some(p => p.repo_check);
+    $("#heat-repo-l").hidden = $("#heat-repo").hidden = !hasRC;
+    $("#heat-repo").innerHTML = `<option value="">any repo check</option><option value="ok">repo confirmed</option><option value="no">repo not yet confirmed</option>`;
+    $("#heat-repo").addEventListener("change", e => { hstate.repo = e.target.value; renderHeat(); });
+
     $("#heat-sort").addEventListener("change", sync);
     $("#heat-reset").addEventListener("click", () => {
-      hstate.q = ""; hstate.up = ""; hstate.sort = P.some(p => p.tvl) ? "tvl" : "name";
-      $("#heat-q").value = ""; $("#heat-up").value = ""; $("#heat-sort").value = hstate.sort;
+      hstate.q = ""; hstate.up = ""; hstate.repo = ""; hstate.sort = ALL.some(p => p.tvl) ? "tvl" : "name";
+      $("#heat-q").value = ""; $("#heat-up").value = ""; $("#heat-repo").value = ""; $("#heat-sort").value = hstate.sort;
       renderHeat();
     });
     $("#heat").addEventListener("click", e => {
@@ -315,10 +374,15 @@
     }).join("") + `</div>`;
   }
   function detail(pid, dim) {
-    const p = P.find(x => x.id === pid);
+    const p = ALL.find(x => x.id === pid);
     const dims = dim ? [dim] : D.dims.map(d => d.id);
     const repos = p.repos.map(r => `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.url.replace("https://github.com/", ""))}</a> @ ${esc((r.commit || "").slice(0, 10))} (${esc(r.role)})`).join(" · ");
-    const ctx = [p.category, p.launch_year && "launched " + p.launch_year, p.upgradeability, p.label_status === "draft" ? "context labels are drafts" : ""].filter(Boolean).join(" · ");
+    const sibs = ALL.filter(x => x.parent && x.parent === p.parent && x.id !== p.id).map(x => x.name);
+    const ctx = [p.category, p.launch_year && "launched " + p.launch_year, p.upgradeability,
+      p.commit_date && "last commit " + p.commit_date,
+      rcText(p),
+      sibs.length ? (p.headline ? "counts for its family" : "not counted in one-per-family totals") + " (also scanned: " + sibs.join(", ") + ")" : "",
+      p.label_status === "draft" ? "context labels are drafts" : ""].filter(Boolean).join(" · ");
     $("#detail").innerHTML = `<div class="detail"><h3>${esc(p.name)}${dim ? " — " + esc(DIM_LABEL[dim]) : ""}</h3>
       <p class="meta">${esc(ctx)}<br>Scanned: ${repos}</p>` +
       dims.map(d => D.variables.filter(v => v.dim === d).map(v => {
@@ -337,7 +401,12 @@
       `<p><strong>Not yet measured.</strong> The plan is to hand-label a held-out set of protocols on every practice, without looking at the extractor's output, and report accuracy per practice here. Practices below about 90% will be fixed, flagged, or dropped. Until then, every number on this page is unvalidated.</p>`;
     $("#methods-box").innerHTML = `
       <h3>Sample</h3>
-      <p><strong>${n} protocols</strong>${pilot ? ", and the results are provisional until accuracy is measured" : ""}. The target sample is influential, original (non-fork) Ethereum DeFi protocols: ranked by Ethereum TVL from DefiLlama at a fixed snapshot date; forks, closed-source, deprecated and inactive protocols removed; repositories mapped with Electric Capital's open-dev-data and reviewed by hand; every exclusion logged with its reason. Each protocol is one subject (one version of a codebase), possibly spanning several repositories.</p>
+      <p><strong>${ALL.length} protocol versions from ${new Set(ALL.map(p => p.parent || p.id)).size} protocol families</strong>${pilot ? ", and the results are provisional until accuracy is measured" : ""}. The target sample is influential, original (non-fork) Ethereum DeFi protocols. Every Ethereum protocol in DefiLlama's snapshot of ${esc(D.snapshot_date)} was ranked by Ethereum TVL; exchanges, bridges, chains, forks and deprecated entries were dropped by rule; the rest were reviewed by hand in TVL order until ${ALL.length} were included. A candidate was skipped when it has no public contracts repository, is custodial, shares a codebase with a protocol already included, or its repository could not be identified with confidence. Every skip is logged with its reason in <code>data/review.csv</code>. Each subject is one version of a codebase (Aave V3, Aave V4), possibly spanning several repositories.</p>
+      ${ALL.some(p => p.repo_check) ? (() => {
+        const n = k => ALL.filter(p => p.repo_check && p.repo_check.status === k).length;
+        return `<p>To check that each repository is the protocol's real code, the contracts DefiLlama reads the protocol's TVL from were looked up on Etherscan and matched against the contracts the repository declares. <strong>${n("auto")} of ${ALL.length}</strong> repositories were confirmed this way${n("hand") ? `, and ${n("hand")} more by hand` : ""}. ${n("unconfirmed") ? `${n("unconfirmed")} are not yet confirmed: they have no distinctive deployed contract to compare against (DefiLlama lists only tokens or an older version, or fetches the contracts from an API) and await a check by hand. ` : ""}${n("doubtful") ? `${n("doubtful")} were flagged as doubtful on review. ` : ""}The explorer marks each protocol: <span class="rc auto" aria-hidden="true">✓</span> confirmed, <span class="rc unconfirmed" aria-hidden="true">?</span> not yet.</p>`;
+      })() : ""}
+      <p>Charts count <strong>one subject per protocol family</strong> by default: the family's latest version, by launch year. Versions of one team share its habits, so counting every version would weight families with many versions. The switch at the top counts every version instead. Bars in the adoption ranking carry a 95% Wilson interval: with a sample this size, shares that differ by a few points are not distinguishable.</p>
       <h3>What is measured</h3>
       <p><strong>Hover any practice name (the dotted underline) to see exactly what the extractor looks for.</strong> The same text is in <code>out/variables.csv</code> as <code>how_measured</code>.</p>
       <p>${D.variables.filter(v => !v.derived).length} practices, read from a shallow clone of each repository at the scanned commit. No git history and no on-chain data. Tool practices use four ordered levels:</p>
@@ -372,7 +441,14 @@
     });
   })();
 
-  header(); ranking(); saidVsRun(); stages(); upgradeability(); toolchain(); heatmap(); methods();
+  function render() {
+    applySample();
+    header(); ranking(); saidVsRun(); stages(); upgradeability(); toolchain(); renderHeat(); methods();
+  }
+  document.querySelectorAll("#sample-seg button").forEach(b => b.addEventListener("click", () => {
+    sample = b.dataset.sample; render();
+  }));
+  applySample(); heatmap(); render();
 
   // deep link: index.html#p=aave-v3&d=D6_upgrade opens that protocol / dimension in the explorer
   const q = new URLSearchParams(location.hash.slice(1));

@@ -1,0 +1,4 @@
+# Hand decisions on repo mappings that tools/verify_mapping.py could not confirm (see check_sample.py's list).
+# decision: confirmed (the repo is the protocol's code) | doubtful (kept, but flagged on the site)
+# A wrong repo is not recorded here: fix data/repos.csv and re-run extract.py instead.
+protocol_id,decision,reviewer,date,note

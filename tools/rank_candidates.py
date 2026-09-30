@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Rank Ethereum protocols by Ethereum TVL and pre-filter them into a candidate list.
 
-    python3 tools/rank_candidates.py [data/sources/defillama_<date>.json] [--top 300]
+    python3 tools/rank_candidates.py [data/sources/defillama_<date>.json] [--top 600]
 
 Writes data/candidates.csv. Nothing is dropped silently: every row carries a verdict and a reason.
   drop    automatic, with a reason (fork, deprecated, not a DeFi protocol by category)
   review  needs a human (a sibling version of a higher-ranked protocol, or a borderline category)
   keep    passed the automatic rules; still needs its repos mapped and a hand check for open source
-The list is a starting point for hand review, not the sample.
+The list is a starting point for hand review, not the sample: hand decisions (include /
+exclude, with a reason) live in data/review.csv, and tools/check_sample.py checks the two agree.
 """
 import argparse
 import csv
@@ -18,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 # not on-chain DeFi protocols with their own contracts
-NOT_DEFI = {"CEX", "Bridge", "Canonical Bridge", "Chain", "Risk Curators", "Onchain Capital Allocator",
+NOT_DEFI = {"CEX", "Bridge", "Canonical Bridge", "Cross Chain Bridge", "Chain", "Risk Curators", "Onchain Capital Allocator",
             "Wallets", "Services", "Analytics", "NFT Marketplace", "Gaming", "Prediction Market",
             "Anchor", "Infrastructure", "Oracle", "Ponzi", "Privacy"}
 BORDERLINE = {"RWA", "Basis Trading", "Yield", "Yield Aggregator", "Staking Pool", "Restaking",
@@ -28,9 +29,9 @@ BORDERLINE = {"RWA", "Basis Trading", "Yield", "Yield Aggregator", "Staking Pool
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("snapshot", nargs="?")
-    ap.add_argument("--top", type=int, default=300)
+    ap.add_argument("--top", type=int, default=600)
     a = ap.parse_args()
-    snap = Path(a.snapshot) if a.snapshot else sorted((ROOT / "data" / "sources").glob("defillama_*.json"))[-1]
+    snap = Path(a.snapshot) if a.snapshot else sorted((ROOT / "data" / "sources").glob("defillama_2*.json"))[-1]
     data = json.loads(snap.read_text())
     prots = data["protocols"]
     by_id = {str(p["id"]): p for p in prots}

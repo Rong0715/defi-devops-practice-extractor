@@ -1,0 +1,102 @@
+# tools/verify_mapping.py; DefiLlama-Adapters @ 0703eb6c597ce7600a4c6e758a9a2b3cee26a8a6; Etherscan chain 1; 2026-09-30
+protocol_id,verdict,adapter,addresses,verified,matched,generic_matched,unmatched
+uniswap-v4,confirmed,uniswap-v4/index.js,35,18,PoolManager (src/ERC6909.sol),,BOBO;Bobo;CATERC20;ERC20;ERC6160Ext20;HToken;OFTAdapterForSand;TestERC20
+aave-v3,confirmed,aave-v3/index.js,33,10,AaveProtocolDataProvider,,PendlePrincipalToken
+morpho-blue,confirmed,morpho-blue/index.js,40,3,Morpho,,AZND;CurveStableSwapNG
+compound-comet,no_match,compound-v3/index.js,1,1,,,Comp
+lido-core,confirmed,lido/index.js,3,2,VaultHub,,StMATIC
+curve,confirmed,curve/index.js,40,26,CurveTokenV1.vy;StableSwapUST.vy,,CCollateralCapErc20Delegate;CurveStableswapFactoryNG;CurveTricryptoFactory;CurveTwocryptoFactory;FixedForex;Vyper_contract;WETH9;ZaiStablecoin
+rocket-pool,confirmed,rocketpool/index.js,7,7,RocketDepositPool;RocketMegapoolFactory;RocketMinipoolManager;RocketNodeManager;RocketNodeStaking;RocketStorage;RocketTokenRPL,,
+liquity-v1,confirmed,liquity/index.js,3,3,LQTYStaking;LQTYToken;TroveManager,,
+liquity-v2,confirmed,liquity-v2/index.js,2,2,CollateralRegistry,,
+pendle-v2,no_match,pendle/index.js,40,32,,,AToken;BTRFLY;Comp;FiatTokenV2_2;PENDLE;PendleAaveMarket;PendleAaveV2YieldTokenHolder;PendleCompoundMarket
+eigenlayer,confirmed,eigenlayer/index.js,4,4,BackingEigen;EigenPodManager;EigenStrategy;StrategyManager,,
+ether-fi,confirmed,ether-fi/index.js,10,8,EarlyAdopterPool;LiquidityPool,,BoringGovernance;DefaultCollateral;DelegationSupervisor;Vault
+stakewise-v3,confirmed,stakewise/index.js,5,4,EthOsTokenVaultEscrow;VaultsRegistry,,RewardEthToken;StakedEthToken
+symbiotic,confirmed,symbiotic/index.js,2,2,VaultFactory (contracts/VaultFactory.sol),,DefaultCollateralFactory
+nexus-mutual,confirmed,nexus/index.js,1,1,NXMaster,,
+sky-lending,confirmed,maker/index.js,11,7,Dog;Jug;Pot;Vat,,LockstakeEngine;SaiTub;Sky
+maple-v2,no_match,maple/index.js,2,2,,,MapleToken;xMPL
+fluid,confirmed,fluid/index.js,9,5,FluidLiquidityDummyImpl;FluidLiquidityResolver,,BoringVault;ZtakingPool
+balancer-v3,confirmed,balancer-v3/index.js,2,2,VaultExtension,,SiloVault
+euler-v2,confirmed,euler-v2/index.js,16,1,EVault,,
+uniswap-v3,confirmed,uniswap/index.js,40,17,UniswapV3Factory;UniswapV3Pool,,ETHmx;Gravitas;L1ArbitrumToken;PEAKDEFI_V2;Token;UXLINKToken;VenomNetworkToken;X1NetworkToken
+uniswap-v2,confirmed,uniswap-v2/index.js,14,1,UniswapV2Factory,,
+aave-v2,confirmed,aave/index.js,7,5,LendingPool;LendingPoolAddressesProviderRegistry,,ConfigurableRightsPool;StakedAaveV3;StakedTokenV3
+compound-v2,confirmed,compound-onchain/index.js,2,2,CEther;Comptroller,,
+balancer-v2,confirmed,balancer/index.js,10,5,Vault (balances/BalanceAllocation.sol),,BinaryOption;Proxy;TetherToken
+bancor-v3,confirmed,bancor-v3/index.js,3,3,BancorNetwork;MasterVault,,SmartToken
+convex,confirmed,convex/index.js,12,10,Booster;CurveVoterProxy;FraxVoterProxy (contracts/VoterProxy.sol);cvxRewardPool,,FxnVoterProxy;PrismaVoterProxy;TokenLocker;Voting Escrow;Vyper_contract
+yearn-v3,confirmed,yearn/index.js,40,40,VaultV3.vy,,MasterChef;TokenizedStrategy;Vyper_contract;veCurveVault;yVault
+enzyme,no_match,enzyme/index.js,1,1,,,Melon
+set-protocol-v2,confirmed,set-protocol/index.js,4,4,CErc20;Controller,Vault,CErc20Delegate
+reserve,confirmed,reserve/index.js,30,22,DeployerP1;FacadeMonitor;MorphoAaveV2TokenisedDeposit;RecollateralizationLibP1;RevenueTraderP1,,FolioDeployer;FolioGovernor;GovernanceDeployer;RSR;TimelockControllerUpgradeable;USDP;Vault
+alchemix-v3,no_match,alchemix-v3/index.js,3,2,,,AlchemixToken;VaultV2Factory
+gearbox-v3,no_match,gearbox/index.js,14,8,,,AddressProviderV3;CreditAccount;CreditManager;DefillamaCompressor;GearToken;MarketConfiguratorLegacy;PoolService
+dolomite,confirmed,dolomite/index.js,6,2,DolomiteMargin,,WorldLibertyFinancialV3
+m0,confirmed,m0/index.js,1,1,MinterGateway,,
+huma-v2,no_match,huma-v2/index.js,3,3,,,CMTAT_PROXY_FACTORY;Safe;VaultV2Factory
+derive-v2,no_match,lyra-v2/index.js,41,33,,,Derive;OLAS;PYUSD;PufferVaultV5;RSETH;RswETH;SolvBTCV3;SolvBTCYieldTokenV3_1
+kelp,confirmed,kelp-dao/index.js,1,1,LRTDepositPool,,
+renzo,no_match,renzo/index.js,4,3,,,MultiVault;Renzo;XERC20Lockbox
+puffer,confirmed,puffer-lrt/index.js,1,1,PufferVaultV5 (src/PufferVaultStorage.sol),,
+liquid-collective,confirmed,liquid-collective/index.js,1,1,RiverV1,,
+stader-ethx,confirmed,stader/index.js,4,4,PermissionlessNodeRegistry;SDCollateral;StaderStakePoolsManager,,
+nodedao,no_match,node-dao/index.js,1,1,,,NodeDAOView
+frax-eth,confirmed,frax-ETH/index.js,13,11,frxETH;frxETHMinter,,FraxEtherRedemptionQueue;FraxUnifiedFarm_ERC20_Convex_frxETH;GnosisSafe;GnosisSafeProxy;StakingProxyConvex;Vyper_contract
+cap,confirmed,cap-money/index.js,15,15,CapToken;Delegation;EigenServiceManager;Lender;OFTLockboxUpgradeable;Oracle (access/Access.sol);StakedCap;SymbioticNetwork;SymbioticNetworkMiddleware;Wrapper,,AllocationManager;ERC20RevocableComplianceStandard
+ssv-network,confirmed,ssv-network/index.js,1,1,SSVToken (token),,
+spark-savings,confirmed,spark-savings/index.js,13,7,SparkVault,,SSROracleForwarderOptimism;SparkEthereum_20250515;UsdcVault
+obol,no_match,obol/index.js,2,2,,,ObolToken;RebasingStakedObol
+meth,no_match,mantle-meth/index.js,1,1,,,L1Cook
+superstate-ustb,no_match,superstate/index.js,1,1,,,FundToken
+aave-v4,confirmed,aave-v4/index.js,6,4,HubInstance,,
+defi-saver,no_evidence,defisaver.js,0,0,,,
+olympus-cooler,confirmed,cooler-loans/index.js,5,5,Clearinghouse;MonoCooler,,gOHM
+crvusd,confirmed,crv-usd/index.js,4,4,ControllerFactory.vy,,
+yield-basis,confirmed,yield-basis/index.js,1,1,Factory (contracts/Factory.vy),,
+fx-protocol,confirmed,fx-Protocol/index.js,16,16,AaveV3Strategy;FxUSDBasePool;LiquidityGauge (distributor/LinearMultipleRewardDistributor.sol);PoolManager (codec/WordCodec.sol);TreasuryWithFundingCost (codec/WordCodec.sol);WrappedTokenTreasuryV2 (codec/WordCodec.sol),,ATokenInstance;Gauge Controller;stETHTreasury;uniBTC
+bedrock-unibtc,no_evidence,bedrock/index.js,0,0,,,
+homora-v2,no_match,alpha-homora/index.js,40,1,,,AlphaToken
+stake-link,confirmed,stakedotlink/index.js,5,5,PriorityPool;SDLPool;StakingAllowance;StakingPool,,
+concentrator,confirmed,concentrator/index.js,28,28,AladdinCRVV2;AladdinCVX;AladdinETH;AladdinFXSConvexVault;AladdinFXSV2;CLeverToken;ConcentratorAladdinETHVault;ConcentratorIFOVault;ConcentratorVaultForAsdCRV;CvxCompounder;CvxFxnCompounder;FxUSD;FxUSDCompounder;FxUSDCompounder4626;SavingFxUSD (codec/WordCodec.sol);SdCrvCompounder;SdPendleCompounder,,AladdinConvexVault;FxUSDBasePool;Vyper_contract;sdCRV;sdToken
+frankencoin,confirmed,frankencoin/index.js,6,6,StablecoinBridge,,AllUnity;CryptoFranc;VNXCToken
+vesper,no_match,vesper/index.js,2,2,,,VSP;VVSP
+wise-token,confirmed,wise-token/index.js,2,2,WiseToken (token),,UniswapV2Pair
+solvbtc,no_evidence,solv-btc-lst/index.js,0,0,,,
+treehouse,confirmed,treehouse/index.js,14,11,NavUnStEth;SimpleStakingERC20;TAsset;Vault (libs/BlacklistableUpgradeable.sol),Vault,ComposableStablePool;CurveStableSwapNG;LendingPoolv3;Vyper_contract;WithdrawalQueueERC721
+origin-ether,confirmed,originether/index.js,10,3,ConvexEthMetaStrategy (governance/Governable.sol);CurveAMOStrategy;OETHVault,,
+origami,confirmed,origami/index.js,32,8,OpalVault;OrigamiDelegated4626Vault;OrigamiHOhmVault;OrigamiLovToken (common/MintableToken.sol);OrigamiLovTokenMorphoManager (access/OrigamiElevatedAccess.sol);OrigamiSuperSavingsUsdsVault (common/OrigamiErc4626.sol),,
+beefy,confirmed,beefy/index.js,6,1,BIFI (token),,
+resupply,confirmed,resupply/index.js,3,3,GovStaker;GovToken;ResupplyRegistry,,
+infinifi,confirmed,infiniFi/index.js,1,1,Accounting,,
+autofinance,confirmed,tokemak/index.js,40,35,AccToke;SystemRegistry,,APWToken;AlchemixToken;DefiRound;EthPool;FOX;Fei;Gamma;MagicInternetMoneyV1
+strata,confirmed,strata-tranches/index.js,14,14,Tranche,,
+frax,confirmed,fraxfinance/index.js,40,40,ConvexAMO_V1_Recoverer (Common/Context.sol);CurveAMO_V3 (Common/Context.sol);FraxPoolV3;FraxUnifiedFarm_ERC20_Convex_stkcvxFRAXBP;MetaImplementationUSD.vy;Pool_USDC;StableSwap3Pool.vy;Stake_FXS_WETH;veFXS.vy,,AToken;AlToken;BaseRewardPool;BendToken;CvxCrvStakingWrapper;ENSToken;ERC20RevocableComplianceStandard;FrxUSDCustodianWithOracle
+ipor-fusion,no_evidence,ipor-fusion/index.js,0,0,,,
+swell,confirmed,swell/index.js,1,1,swETH,,
+aegis-yusd,confirmed,aegis-yusd/index.js,2,1,YUSD,,
+inverse-firm,confirmed,inverse-finance-firm/index.js,5,5,DolaBorrowingRights,,ERC20;INV;XINV;sDola
+meta-pool-eth,no_match,metapool-eth/index.js,1,1,,,TransparentUpgradeableProxy
+termmax,confirmed,term-structure/index.js,40,15,AccessManager;TermMax4626Factory;TermMaxFactory;TermMaxFactoryV2;TermMaxVaultFactoryV1Plus (storage/TermMaxStorage.sol);TermMaxVaultFactoryV2;VaultFactory (errors/FactoryErrors.sol),,RollupFacet
+mellow-lrt,no_evidence,mellow-protocol-v2/index.js,0,0,,,
+fraxlend,confirmed,fraxlend/index.js,3,1,FraxlendPairRegistry,,
+stakestone,confirmed,stakestone/index.js,2,2,AssetsVault;StrategyController,,
+origin-arm,confirmed,originarm/index.js,8,7,EthenaARM;EtherFiARM;LidoARM;MultiAssetARM;OriginARM,,OETH
+juicebox-v1,confirmed,juicebox-v1/index.js,2,2,TerminalV1;TerminalV1_1,,
+native-credit-pool,confirmed,native-lend/index.js,6,1,CreditVault,,
+yieldfi,confirmed,yield-fi/index.js,18,11,LockBox;YToken;vyToken (administrator/Access.sol),,Vault
+superform,confirmed,superform/index.js,23,13,SuperformFactory,,PrimeCashProxy;SuperVaultAggregator;nTokenERC20Proxy
+anvil,confirmed,anvil/index.js,1,1,CollateralVault,,
+bancor-v2-1,confirmed,bancor/index.js,2,2,ContractRegistry,,BancorConverterRegistry
+aura,confirmed,aura-finance/index.js,19,15,AuraLocker;AuraToken,,AvalancheRootGaugeFactory;BalancerGovernanceToken;Booster;L2GaugeCheckpointer;OmniVotingEscrowAdaptor;ProtocolIdRegistry;Vault;VoterProxy
+metronome-synth,confirmed,metronome-synth/index.js,16,9,NativeTokenGateway;Treasury (contracts/Treasury.sol),,AaveV3VesperStETH;VETH;VPool
+aave-v1,confirmed,aave-v1/index.js,2,2,LendingPoolCore,,InitializableAdminUpgradeabilityProxy
+brickken,confirmed,brickken/index.js,5,1,STOFactoryManagedUpgradeable,,
+inceptionlrt,confirmed,inception-lrt/index.js,17,17,InStrategyBaseVault_E1 (assets-handler/InceptionAssetsHandler.sol);InVault_E1;InVault_S_E2;InceptionVault_EL,,LRTVault
+contango-v2,confirmed,contango-v2/index.js,2,2,Contango;ContangoLens,,
+swaap-v2,confirmed,swaap-v2/index.js,2,2,SafeguardFactory;Vault (contracts/PoolBalances.sol),,
+yo-protocol,confirmed,yo/index.js,7,7,YoVault,,PlasmaVault
+balancer-v1,confirmed,balancer-v1/index.js,7,5,BFactory,,BinaryOption;Proxy;TetherToken
+dinero-pxeth,confirmed,dinero/index.js,2,2,PxEth;StakedDinero (libraries/DataTypes.sol),,
+pickle,confirmed,pickle/index.js,5,5,Gauge;PickleToken;dill.vy,,UniswapV2Pair;Vyper_contract

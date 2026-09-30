@@ -99,6 +99,12 @@ h2 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.01em; }
 .bar > i:last-child { border-radius: 0 4px 4px 0; }
 .bar.single > i { border-radius: 0 4px 4px 0; background: var(--lv2); }
 .bar.stack { background: none; }
+/* 95% interval drawn over a share bar */
+.bar.ci { position: relative; }
+.bar.ci > b { position: absolute; top: 50%; height: 2px; margin-top: -1px; background: var(--ink); opacity: .55; }
+.bar.ci > b::before, .bar.ci > b::after { content: ""; position: absolute; top: -4px; width: 2px; height: 10px; background: inherit; }
+.bar.ci > b::before { left: 0; } .bar.ci > b::after { right: 0; }
+.controls.sample { margin: 20px 0 0; }
 .bar.stack > i.lv0 { background: var(--track); }
 .bar > i.lv1 { background: var(--lv1); } .bar > i.lv2 { background: var(--lv2); } .bar > i.lv3 { background: var(--lv3); }
 .bar > i.g1 { background: var(--c1); } .bar > i.g2 { background: var(--c2); } .bar > i.g3 { background: var(--c3); } .bar > i.go { background: var(--other); }
@@ -128,6 +134,18 @@ th { color: var(--ink-2); font-weight: 600; }
 .heat th.rowh { text-align: left; }
 .heat th.rowh button { font: inherit; font-size: 13px; font-weight: 500; color: var(--ink); background: none; border: 0; cursor: pointer; padding: 3px 6px 3px 0; text-align: left; }
 .heat th.rowh button:hover { text-decoration: underline; }
+/* repo check badge: is the scanned repo the protocol's real code? */
+.rc { display: inline-grid; place-items: center; width: 15px; height: 15px; margin-left: 6px; border-radius: 50%;
+  font: 700 10px/1 system-ui, sans-serif; vertical-align: 1px; border: 1.5px solid transparent; }
+.rc.auto { background: var(--c3); color: #fff; }
+.rc.hand { border-color: var(--c3); color: var(--c3); }
+.rc.unconfirmed { border-color: var(--ink-3); color: var(--ink-3); border-style: dashed; }
+.rc.doubtful { background: var(--warn-bg); border-color: var(--warn-ink); color: var(--warn-ink); }
+.rclegend { flex-wrap: wrap; gap: 4px 16px; }
+.rclegend .rc { margin: 0 5px 0 0; }
+.methods .rc { margin: 0 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.heat th.rowh button small { display: block; font-size: 11px; font-weight: 400; color: var(--ink-3); }
 .heat td { border: 0; padding: 0; }
 .cell {
   display: block; width: 100%; min-width: 66px; height: 34px; border: 0; border-radius: 4px; cursor: pointer;
