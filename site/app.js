@@ -156,6 +156,117 @@
       rows.map(({ v, c }) => [v.label, c.n, c.runs_in_ci, c.configured, c.mentioned, c.absent]));
   }
 
+  // ---- 2b. practice ladder ----------------------------------------------
+  // Do protocols adopt practices in one order? A ladder (Guttman scale) holds when a protocol
+  // with a rarer practice also has the more common ones. Loevinger's H compares the observed
+  // order violations with the number expected if practices were adopted independently:
+  // 0 = no order, 1 = perfect ladder; 0.3 / 0.4 / 0.5 are the usual weak / medium / strong marks.
+  const CORE = ["D2_test.suite_present", "D4_ci.runs_on_pull_request", "D2_test.fuzz_testing",
+    "D2_test.invariant_testing", "D2_test.formal_any"];
+  // single tools already counted by a roll-up (any analyzer, any formal tool)
+  const ROLLED = v => /^D2_test\.formal_(?!any)|^D3_static\.(?!any_analyzer)/.test(v.id);
+  function ladderCols(ps, vars, m) {
+    const X = {};
+    vars.forEach(v => {
+      const col = ps.map(p => adopted(p, v, m)), k = col.filter(x => x).length, n = col.filter(x => x !== null).length;
+      if (k > 0 && k < n) X[v.id] = { col, pop: k / n, k, n };
+    });
+    return X;
+  }
+  // [violations, violations expected under independence] for one pair of practices
+  function pairErr(a, b) {
+    let n = 0, na = 0, nb = 0, f = 0;
+    const [e, h] = a.pop >= b.pop ? [a, b] : [b, a];
+    for (let i = 0; i < e.col.length; i++) {
+      const x = e.col[i], y = h.col[i];
+      if (x === null || y === null) continue;
+      n++; if (x) na++; if (y) nb++; if (!x && y) f++;
+    }
+    return n ? [f, (n - na) * nb / n] : [0, 0];
+  }
+  function scaleH(X, ids) {
+    let F = 0, E = 0;
+    for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+      const [f, e] = pairErr(X[ids[i]], X[ids[j]]); F += f; E += e;
+    }
+    return E ? 1 - F / E : null;
+  }
+  function itemH(X, id, ids) {
+    let F = 0, E = 0;
+    ids.forEach(j => { if (j !== id) { const [f, e] = pairErr(X[id], X[j]); F += f; E += e; } });
+    return E ? 1 - F / E : null;
+  }
+  // 95% interval for H by resampling protocols; seeded so the page shows the same numbers every load
+  function bootH(ps, ids, m) {
+    let s = 20261005;
+    const rnd = () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+    const vars = ids.map(i => VAR[i]), out = [];
+    for (let b = 0; b < 1000; b++) {
+      const X = ladderCols(ps.map(() => ps[Math.floor(rnd() * ps.length)]), vars, m);
+      if (ids.every(i => X[i])) { const h = scaleH(X, ids); if (h !== null) out.push(h); }
+    }
+    out.sort((a, b) => a - b);
+    return out.length ? [out[Math.floor(out.length * .025)], out[Math.floor(out.length * .975)]] : [null, null];
+  }
+  // rungs in the current sample's order (most common first) and each protocol's place on them
+  function ladderFit(ps) {
+    const X = ladderCols(ps, CORE.map(i => VAR[i]), "any");
+    const rungs = CORE.filter(i => X[i]).sort((a, b) => X[b].pop - X[a].pop || CORE.indexOf(a) - CORE.indexOf(b));
+    const fit = {};
+    ps.forEach((p, k) => {
+      const has = rungs.map(i => X[i].col[k] === true), n = has.filter(Boolean).length;
+      fit[p.id] = { has, n, on: has.every((h, i) => h === (i < n)) };
+    });
+    return { X, rungs, fit };
+  }
+  const f2 = x => (x == null ? "–" : (x < 0 ? "−" : "") + Math.abs(x).toFixed(2));
+  const strength = h => h == null ? "" : h >= .5 ? "strong" : h >= .4 ? "medium" : h >= .3 ? "weak" : "none";
+  let LAD = null;
+  function ladder() {
+    const vars = D.variables.filter(v => countable(v) && !ROLLED(v));
+    const XA = ladderCols(P, vars, "any"), allIds = Object.keys(XA);
+    const { X, rungs, fit } = LAD = ladderFit(P);
+    const hAll = scaleH(XA, allIds), hCore = scaleH(X, rungs), [lo, hi] = bootH(P, rungs, "any");
+    const XC = ladderCols(P, CORE.map(i => VAR[i]), "ci"), hCi = scaleH(XC, CORE.filter(i => XC[i]));
+    const on = P.filter(p => fit[p.id].on).length;
+    $("#ladder-kpis").innerHTML = `
+      <div class="kpi"><div class="n">${f2(hAll)}</div><div class="t">scalability (H) of all ${allIds.length} practices together: ${hAll >= .3 ? "a " + strength(hAll) + " ladder" : "below 0.3, so no single ladder"}</div></div>
+      <div class="kpi"><div class="n">${f2(hCore)}</div><div class="t">H of the ${rungs.length}-rung testing and CI ladder (95% interval ${f2(lo)} to ${f2(hi)}): a ${strength(hCore)} ladder</div></div>
+      <div class="kpi"><div class="n">${on}<small> of ${P.length}</small></div><div class="t">protocols sit exactly on that ladder, with no rung skipped</div></div>`;
+
+    // staircase: one column per protocol, most rungs first; cells that break the order stand out
+    const ps = P.slice().sort((a, b) => fit[b.id].n - fit[a.id].n || fit[b.id].on - fit[a.id].on || a.name.localeCompare(b.name));
+    legend("#ladder-legend", [["Found, in order", "--lv2"], ["Found, but a lower rung is missing", "--c2"], ["Not found", "--track"]]);
+    $("#ladder-stairs").innerHTML = `<div class="stairs" style="--n:${ps.length}">` + rungs.map((id, r) =>
+      `<div class="lab">${named(VAR[id])}<small>${X[id].k} of ${X[id].n}</small></div><div class="strip">` + ps.map(p => {
+        const f = fit[p.id], h = f.has[r], odd = h && r >= f.n, skip = !h && r < f.n;
+        return `<i class="${h ? (odd ? "odd" : "has") : skip ? "skip" : ""}" data-tip="${esc(`${p.name}: ${VAR[id].label} ${h ? "found" : "not found"}${odd ? ", although a more common rung is missing" : skip ? ", although a rarer rung is present" : ""}`)}"></i>`;
+      }).join("") + "</div>").join("") + "</div>";
+    const tied = rungs.slice(1).filter((id, i) => Math.abs(X[rungs[i]].k - X[id].k) <= 3).map(id => `${VAR[rungs[rungs.indexOf(id) - 1]].label} and ${VAR[id].label}`);
+    $("#ladder-note").innerHTML = `Each column is one protocol, sorted by how many rungs it has. A perfect ladder would be a clean staircase. ` +
+      (tied.length ? `${esc(tied.join("; "))} are almost equally common, so their order is not settled; most breaks are a swap of those two. ` : "") +
+      `Counting only what runs in CI gives H = ${f2(hCi)}, but that is partly circular (a tool cannot run in CI without CI), so the looser “configured or better” threshold is used here.`;
+
+    // rung counts
+    const counts = rungs.map(() => 0).concat(0); P.forEach(p => { if (fit[p.id].on) counts[fit[p.id].n]++; });
+    const rungName = k => k === 0 ? "None of the rungs" : `Up to: ${VAR[rungs[k - 1]].label}`;
+    const mx = Math.max(...counts, P.length - on, 1);
+    $("#ladder-rungs").innerHTML = counts.map((c, k) => [`Rung ${k}`, rungName(k), c]).concat([["Off the ladder", "at least one rung out of order", P.length - on]])
+      .map(([a, b, c]) => `<div class="row"><div class="lab">${esc(a)}<small>${esc(b)}</small></div><div class="bar single" ${tipAttr(`${a} (${b}): ${c} of ${P.length} protocols`)}><i style="width:${c / mx * 100}%"></i></div><div class="val">${c} <small>${pct(c / P.length)}</small></div></div>`).join("");
+
+    // every other practice against the ladder
+    const others = allIds.filter(i => !rungs.includes(i)).map(i => {
+      const XX = Object.assign({ [i]: XA[i] }, X); return { v: VAR[i], h: itemH(XX, i, rungs), k: XA[i].k, n: XA[i].n };
+    }).sort((a, b) => b.h - a.h);
+    $("#ladder-others").innerHTML = others.map(r => `
+      <div class="row"><div class="lab">${named(r.v)}<small>${esc(DIM_LABEL[r.v.dim])} · ${r.k} of ${r.n}${r.k < 5 ? " · too rare to judge" : ""}</small></div>
+        <div class="bar single mark${r.k < 5 ? " faint" : ""}" ${tipAttr(`${r.v.label}: H = ${f2(r.h)} against the ladder; found in ${r.k} of ${r.n} protocols`)}><i style="width:${Math.max(0, r.h) * 100}%"></i><b style="left:30%"></b></div>
+        <div class="val">${f2(r.h)}</div></div>`).join("");
+    $("#ladder-tbl").innerHTML = table(["Protocol", "Rungs found", "On the ladder", ...rungs.map(i => VAR[i].label)],
+      ps.map(p => [p.name, fit[p.id].n, fit[p.id].on ? "yes" : "no", ...fit[p.id].has.map(h => h ? "found" : "–")])) +
+      table(["Other practice", "Dimension", "Found in", "H against the ladder"], others.map(r => [r.v.label, DIM_LABEL[r.v.dim], `${r.k}/${r.n}`, f2(r.h)]));
+  }
+
   // ---- 3. stage profile -------------------------------------------------
   function stages() {
     const rows = D.stages.map(s => {
@@ -260,6 +371,10 @@
     else if (hstate.sort === "tvl") ps.sort((a, b) => (b.tvl || 0) - (a.tvl || 0) || byName(a, b));
     else if (hstate.sort === "year") ps.sort((a, b) => (a.launch_year || 9999) - (b.launch_year || 9999) || byName(a, b));
     else if (hstate.sort === "overall") ps.sort((a, b) => overall(b) - overall(a) || byName(a, b));
+    else if (hstate.sort === "ladder") {
+      const f = ladderFit(P).fit;
+      ps.sort((a, b) => f[b.id].n - f[a.id].n || f[b.id].on - f[a.id].on || overall(b) - overall(a) || byName(a, b));
+    }
     else if (hstate.sort === "category") ps.sort((a, b) => (a.category || "~").localeCompare(b.category || "~") || overall(b) - overall(a) || byName(a, b));
     else if (hstate.sort === "family") {
       // families by their best TVL, versions inside a family newest first
@@ -285,7 +400,7 @@
         `aria-label="Sort by ${esc(DIM_LABEL[d.id])}">${esc(d.id.split("_")[0])}` +
         `<span>${esc(DIM_LABEL[d.id])}${on ? " ▾" : ""}</span></button></th>`;
     }).join("") + "</tr>";
-    const sub = p => hstate.sort === "category" ? p.category : hstate.sort === "commit" ? p.commit_date : hstate.sort === "overall" ? pct(overall(p)) : hstate.sort === "year" || hstate.sort === "family" ? p.launch_year : "";
+    const sub = p => hstate.sort === "ladder" ? (f => `${f.n} of ${f.has.length} rungs${f.on ? "" : ", out of order"}`)(LAD.fit[p.id]) : hstate.sort === "category" ? p.category : hstate.sort === "commit" ? p.commit_date : hstate.sort === "overall" ? pct(overall(p)) : hstate.sort === "year" || hstate.sort === "family" ? p.launch_year : "";
     const body = ps.map(p => `<tr><th class="rowh" scope="row"><button type="button" data-p="${esc(p.id)}">${esc(p.name)}${badge(p)}${sub(p) ? `<small>${esc(sub(p))}</small>` : ""}</button></th>` +
       cols.map(d => {
         const s = poolShare(p, dimVars(d.id));
@@ -305,7 +420,7 @@
       .map(([k, n]) => `<span><span class="rc ${k}" aria-hidden="true">${RC[k][0]}</span>${esc(RC[k][1].replace("Repo ", "repo "))} (${n})</span>`).join("");
   }
 
-  const SORTS = { tvl: "Ethereum TVL", overall: "overall score", name: "name", year: "launch year",
+  const SORTS = { tvl: "Ethereum TVL", overall: "overall score", ladder: "testing and CI ladder", name: "name", year: "launch year",
     category: "category", family: "protocol family", commit: "most recent commit" };
   function heatmap() {
     $("#heat-up").innerHTML = `<option value="">all protocols</option>` +
@@ -417,6 +532,8 @@
         <li><strong>Not found</strong>: no trace in the scanned repositories.</li>
       </ul>
       <p>Where several repositories belong to one protocol, the strongest evidence wins for practices that can live anywhere (audits, governance, deployment); testing and build practices are read from the core contracts repository.</p>
+      <h3>The practice ladder</h3>
+      <p>A set of practices forms a ladder when a protocol that has a rarer one also has the more common ones. Loevinger's H measures this: for every pair of practices it counts the protocols that have the rarer one without the more common one, and divides by the count expected if the two were adopted independently. H = 1 − observed / expected, so 0 means no order and 1 a perfect ladder; 0.3, 0.4 and 0.5 are the conventional marks for a weak, medium and strong scale. A practice counts as found when it is configured or better. The five rungs were chosen after looking at the data, so this is an exploratory result, and part of the order is technical rather than a choice: fuzz and invariant tests are tests, and Foundry invariant tests run on the fuzzer.</p>
       <h3>Not applicable, unknown, error</h3>
       <p><strong>Not applicable</strong> cells (for example upgrade checks on an immutable protocol) are excluded from adoption rates. <strong>Unknown</strong> means the relevant part of the protocol lives outside the scanned repositories. <strong>Error</strong> means a probe failed and its result is not counted as “absent”.</p>
       <h3>Accuracy</h3>
@@ -443,7 +560,7 @@
 
   function render() {
     applySample();
-    header(); ranking(); saidVsRun(); stages(); upgradeability(); toolchain(); renderHeat(); methods();
+    header(); ranking(); saidVsRun(); ladder(); stages(); upgradeability(); toolchain(); renderHeat(); methods();
   }
   document.querySelectorAll("#sample-seg button").forEach(b => b.addEventListener("click", () => {
     sample = b.dataset.sample; render();

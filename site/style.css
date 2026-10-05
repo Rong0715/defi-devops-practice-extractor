@@ -191,3 +191,21 @@ footer { padding: 36px 0 60px; color: var(--ink-3); font-size: 12.5px; }
 .help { text-decoration: underline dotted var(--ink-3); text-underline-offset: 3px; cursor: help; }
 .help:hover { text-decoration-color: var(--ink); }
 @media (forced-colors: active) { .bar > i, .cell { forced-color-adjust: none; } }
+
+/* practice ladder */
+.subh { font-size: 15px; margin: 24px 0 8px; }
+.kpi .n small { font-size: 15px; font-weight: 500; color: var(--ink-2); letter-spacing: 0; }
+.stairs { display: grid; grid-template-columns: minmax(120px, 210px) 1fr; gap: 3px 10px; align-items: center; font-size: 13.5px; overflow-x: auto; }
+.stairs .lab small { color: var(--ink-3); display: block; font-size: 11.5px; }
+.stairs .strip { display: grid; grid-template-columns: repeat(var(--n), minmax(5px, 1fr)); gap: 1px; height: 26px; min-width: calc(var(--n) * 6px); }
+.stairs .strip i { background: var(--track); border-radius: 1.5px; }
+.stairs .strip i.has { background: var(--lv2); }
+.stairs .strip i.odd { background: var(--c2); }
+.stairs .strip i.skip { background: repeating-linear-gradient(45deg, var(--c2) 0 2px, var(--track) 2px 4px); }
+.stairs .strip i:hover { outline: 2px solid var(--ink); outline-offset: 0; }
+/* reference mark on a 0-1 bar */
+.bar.mark { position: relative; }
+.bar.mark > b { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); opacity: .55; }
+.bar.faint > i { opacity: .4; }
+@media (max-width: 640px) { .stairs { grid-template-columns: 1fr; } }
+@media (forced-colors: active) { .stairs .strip i { forced-color-adjust: none; } }

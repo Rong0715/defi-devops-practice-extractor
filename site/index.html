@@ -12,6 +12,7 @@
   <div class="wrap">
     <a href="#ranking">Adoption</a>
     <a href="#said-vs-run">Said vs. run</a>
+    <a href="#ladder">Ladder</a>
     <a href="#stages">Lifecycle</a>
     <a href="#upgradeability">Upgradeable vs. immutable</a>
     <a href="#toolchain">Toolchain</a>
@@ -59,6 +60,23 @@
     <div class="rows" id="svr-rows"></div>
     <p class="note">Whether a CI check is <em>required</em> before merging is a branch-protection setting held on GitHub's servers, not in the repository, so it cannot be observed here.</p>
     <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="svr-tbl"></div></details>
+  </section>
+
+  <section id="ladder">
+    <h2>Do practices come in a fixed order?</h2>
+    <p class="sub">If teams matured along one path, a protocol with a rare practice would also have every more common one. Across all practices that is not the case. Within testing and CI it largely is: test suite, then fuzz tests and CI on pull requests, then invariant tests, then formal verification.</p>
+    <div class="kpis" id="ladder-kpis"></div>
+    <h3 class="subh">The testing and CI ladder, protocol by protocol</h3>
+    <div class="legend" id="ladder-legend"></div>
+    <div id="ladder-stairs"></div>
+    <p class="note" id="ladder-note"></p>
+    <h3 class="subh">How far up does each protocol get?</h3>
+    <div class="rows" id="ladder-rungs"></div>
+    <h3 class="subh">Which other practices follow the ladder?</h3>
+    <p class="sub">H of each remaining practice against the five rungs. Above the 0.3 mark, a practice tends to appear in step with the ladder; near zero, teams adopt it regardless of how far up they are.</p>
+    <div class="rows" id="ladder-others"></div>
+    <p class="note">H is unstable for practices found in fewer than five protocols; those bars are faded.</p>
+    <details class="tbl"><summary>Table view</summary><div class="tblwrap" id="ladder-tbl"></div></details>
   </section>
 
   <section id="stages">
