@@ -246,7 +246,9 @@ Current result: **79 confirmed**, 16 `no_match` (DefiLlama lists only tokens, an
 assets), 5 `no_evidence`. As a control, the unrelated repo `cap` once pointed at declares none of the 12
 contracts deployed for cap; the corrected repo declares them.
 
-The unconfirmed ones are what a person still needs to look at; `check_sample.py` lists them with the
+All 21 unconfirmed ones have since been reviewed by hand (18 confirmed, 3 doubtful; two needed a
+repo fix first: Maple's contracts live in module repos, Mellow's on a non-default branch, which `repos.csv`
+pins with a `/tree/<branch>` URL). Unconfirmed ones are what a person needs to look at; `check_sample.py` lists them with the
 deployed names that did not match. Record the outcome in [data/mapping_review.csv](data/mapping_review.csv):
 `confirmed`, or `doubtful` to keep the protocol but flag it. A wrong repo is fixed in `repos.csv` instead.
 The site's explorer marks every protocol (filled ✓ confirmed by the tool, outlined ✓ confirmed by hand,

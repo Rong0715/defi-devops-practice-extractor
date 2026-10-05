@@ -1,4 +1,4 @@
-# tools/verify_mapping.py; DefiLlama-Adapters @ 0703eb6c597ce7600a4c6e758a9a2b3cee26a8a6; Etherscan chain 1; 2026-09-30
+# tools/verify_mapping.py; DefiLlama-Adapters @ 0703eb6c597ce7600a4c6e758a9a2b3cee26a8a6; Etherscan chain 1; 2026-10-05
 protocol_id,verdict,adapter,addresses,verified,matched,generic_matched,unmatched
 uniswap-v4,confirmed,uniswap-v4/index.js,35,18,PoolManager (src/ERC6909.sol),,BOBO;Bobo;CATERC20;ERC20;ERC6160Ext20;HToken;OFTAdapterForSand;TestERC20
 aave-v3,confirmed,aave-v3/index.js,33,10,AaveProtocolDataProvider,,PendlePrincipalToken

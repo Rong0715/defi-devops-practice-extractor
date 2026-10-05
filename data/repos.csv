@@ -1,4 +1,5 @@
 # role: core | periphery | governance | deploy ; subpath restricts code probes in a monorepo
+# url may end in /tree/<branch> when the deployed code is not on the default branch
 protocol_id,repo_id,url,role,subpath,include
 uniswap-v4,uniswap-v4,https://github.com/Uniswap/v4-core,core,,1
 aave-v3,aave-v3,https://github.com/aave-dao/aave-v3-origin,core,,1
@@ -16,6 +17,10 @@ stakewise-v3,stakewise-v3,https://github.com/stakewise/v3-core,core,,1
 symbiotic,symbiotic,https://github.com/symbioticfi/core,core,,1
 nexus-mutual,nexus-mutual,https://github.com/NexusMutual/smart-contracts,core,,1
 sky-lending,sky-lending,https://github.com/makerdao/dss,core,,1
+maple-v2,maple-pool-v2,https://github.com/maple-labs/pool-v2,core,,1
+maple-v2,maple-globals-v2,https://github.com/maple-labs/globals-v2,core,,1
+maple-v2,maple-fixed-term-loan,https://github.com/maple-labs/fixed-term-loan,core,,1
+maple-v2,maple-open-term-loan,https://github.com/maple-labs/open-term-loan,core,,1
 maple-v2,maple-v2,https://github.com/maple-labs/maple-core-v2,core,,1
 fluid,fluid,https://github.com/Instadapp/fluid-contracts-public,core,,1
 balancer-v3,balancer-v3,https://github.com/balancer/balancer-v3-monorepo,core,,1
@@ -79,7 +84,7 @@ aegis-yusd,aegis-yusd,https://github.com/Aegis-im/aegis-contracts,core,,1
 inverse-firm,inverse-firm,https://github.com/InverseFinance/FiRM,core,,1
 meta-pool-eth,meta-pool-eth,https://github.com/Meta-Pool/metapool-ethereum,core,,1
 termmax,termmax,https://github.com/term-structure/termmax-contract-v2,core,,1
-mellow-lrt,mellow-lrt,https://github.com/mellow-finance/mellow-lrt,core,,1
+mellow-lrt,mellow-lrt,https://github.com/mellow-finance/simple-lrt/tree/multi-vault,core,,1
 fraxlend,fraxlend,https://github.com/FraxFinance/fraxlend,core,,1
 stakestone,stakestone,https://github.com/stakestone/stone-vault-v1,core,,1
 origin-arm,origin-arm,https://github.com/OriginProtocol/arm-oeth,core,,1

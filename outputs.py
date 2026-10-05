@@ -18,7 +18,7 @@ def permalink(repo_meta, ev):
     url = repo_meta.get("url", "")
     if not path or "github.com" not in url or not repo_meta.get("commit"):
         return None
-    base = re.sub(r"\.git$", "", url.rstrip("/"))
+    base = re.sub(r"\.git$", "", url.rstrip("/").partition("/tree/")[0])
     frag = f"#L{ev['line']}" if ev.get("line") else ""
     return f"{base}/blob/{repo_meta['commit']}/{path}{frag}"
 

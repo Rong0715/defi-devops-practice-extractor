@@ -64,11 +64,19 @@ def clone_dir(row):
     return REPO_DIR / re.sub(r"[^\w.-]+", "__", slug)
 
 
+def split_branch(url):
+    """('https://github.com/o/r', 'branch' or None) for a URL that may end in /tree/<branch>."""
+    base, _, branch = url.rstrip("/").partition("/tree/")
+    return base, branch or None
+
+
 def clone(url, dest, retries=1):
     if (dest / ".git").exists():
         return True, ""
+    url, branch = split_branch(url)
+    pin = ["--branch", branch] if branch else []
     for attempt in range(retries + 1):
-        p = subprocess.run(["git", "clone", "--depth", "1", "--quiet", url, str(dest)],
+        p = subprocess.run(["git", "clone", "--depth", "1", "--quiet", *pin, url, str(dest)],
                            capture_output=True, text=True, timeout=1800)
         if p.returncode == 0:
             return True, ""

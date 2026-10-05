@@ -2,3 +2,24 @@
 # decision: confirmed (the repo is the protocol's code) | doubtful (kept, but flagged on the site)
 # A wrong repo is not recorded here: fix data/repos.csv and re-run extract.py instead.
 protocol_id,decision,reviewer,date,note
+compound-comet,confirmed,claude,2026-10-05,cUSDCv3 proxy runs CometWithExtendedAssetList and Configurator; both declared in the repo
+pendle-v2,confirmed,claude,2026-10-05,router facet ActionAddRemoveLiqV3 and VotingEscrowPendleMainchain are declared in the repo
+enzyme,confirmed,claude,2026-10-05,FundDeployer and Dispatcher are declared in the repo
+gearbox-v3,confirmed,claude,2026-10-05,USDC and WETH pools run PoolV3; declared in the repo
+renzo,confirmed,claude,2026-10-05,RestakeManager and EzEthToken are declared in the repo
+nodedao,confirmed,claude,2026-10-05,LiquidStaking is declared in the repo
+meth,confirmed,claude,2026-10-05,Staking and METH are declared in the repo
+defi-saver,confirmed,claude,2026-10-05,DFSRegistry is declared in the repo
+bedrock-unibtc,confirmed,claude,2026-10-05,uniBTC and VaultWithoutNative are declared in the repo
+vesper,confirmed,claude,2026-10-05,vaDAI pool runs VPool; declared in the repo
+solvbtc,confirmed,claude,2026-10-05,SolvBTC token runs SolvBTCV3; declared in the repo
+ipor-fusion,confirmed,claude,2026-10-05,4 mainnet vaults from IPOR's API run PlasmaVault / PlasmaVaultBase; declared in the repo
+meta-pool-eth,confirmed,claude,2026-10-05,current and deprecated staking proxies run Staking; Withdrawal also declared in the repo
+alchemix-v3,confirmed,claude,2026-10-05,AlchemistV3 and Transmuter are declared in the repo; the TVL vaults are Morpho Vault V2 instances
+homora-v2,confirmed,claude,2026-10-05,SafeBoxETH is declared in the repo; the HomoraBank implementation is unverified on Etherscan
+obol,confirmed,claude,2026-10-05,OptimisticWithdrawalRecipientFactory is declared in the repo; DefiLlama's TVL counts staked OBOL which is not in this repo
+maple-v2,confirmed,claude,2026-10-05,after adding the module repos: MapleGlobals is in globals-v2 and MaplePool in pool-v2
+mellow-lrt,confirmed,claude,2026-10-05,after switching to simple-lrt branch multi-vault: steakLRT runs MultiVault and DVstETH runs DVV
+superstate-ustb,doubtful,claude,2026-10-05,deployed FundToken v1.3.0 is not in the public repo which stops at SuperstateTokenV4 (April 2025)
+huma-v2,doubtful,claude,2026-10-05,Ethereum TVL is a Safe holding third-party positions not Huma pool contracts; repo last commit December 2024
+derive-v2,doubtful,claude,2026-10-05,repo deploys only to Derive chain (957); Ethereum TVL is bridge vaults from another repo
